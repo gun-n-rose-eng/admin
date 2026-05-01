@@ -1,0 +1,2859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guns N' Roses | Axl Rose Official Inner Circle</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --blood-red: #8B0000;
+            --deep-red: #DC143C;
+            --rose-gold: #B76E79;
+            --gold: #FFD700;
+            --black: #0a0a0a;
+            --dark-gray: #1a1a1a;
+            --light-gray: #2a2a2a;
+            --white: #ffffff;
+            --success: #00ff88;
+            --warning: #ffa500;
+        }
+        html, body {
+            min-height: 100%;
+            width: 100%;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--black);
+            color: var(--white);
+            overflow-x: hidden;
+        }
+        .bg-animation {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(139, 0, 0, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(220, 20, 60, 0.1) 0%, transparent 50%),
+                linear-gradient(to bottom, var(--black), #1a0505);
+        }
+        .stage-light {
+            position: fixed; width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(255, 215, 0, 0.1) 0%, transparent 70%);
+            border-radius: 50%; animation: moveLight 8s infinite; z-index: -1;
+        }
+        .stage-light:nth-child(1) { top: -100px; left: 10%; animation-delay: 0s; }
+        .stage-light:nth-child(2) { top: -100px; right: 10%; animation-delay: 2s; }
+        .stage-light:nth-child(3) { bottom: -100px; left: 50%; animation-delay: 4s; }
+        @keyframes moveLight {
+            0%, 100% { transform: translateY(0) scale(1); opacity: 0.5; }
+            50% { transform: translateY(50px) scale(1.2); opacity: 0.8; }
+        }
+        header {
+            position: fixed; top: 0; width: 100%; padding: 20px 50px;
+            background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--blood-red); display: flex;
+            justify-content: space-between; align-items: center; z-index: 1000;
+            box-shadow: 0 5px 30px rgba(139, 0, 0, 0.3);
+        }
+        .logo {
+            font-size: 32px; font-weight: bold;
+            background: linear-gradient(45deg, var(--gold), var(--rose-gold), var(--deep-red));
+            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-transform: uppercase; letter-spacing: 5px; font-family: 'Impact', sans-serif;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.3); cursor: pointer;
+        }
+        .logo span { color: var(--deep-red); -webkit-text-fill-color: var(--deep-red); }
+        nav ul { display: flex; list-style: none; gap: 40px; flex-wrap: wrap; justify-content: flex-end; align-items: center; }
+        nav a {
+            color: #888; text-decoration: none; font-size: 14px; text-transform: uppercase;
+            letter-spacing: 2px; transition: all 0.3s; position: relative; font-weight: 600; cursor: pointer;
+        }
+        nav a:hover, nav a.active { color: var(--gold); text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+        .admin-link {
+            padding: 12px 30px; border: 2px solid var(--blood-red); border-radius: 25px;
+            color: var(--deep-red); text-decoration: none; font-size: 12px;
+            text-transform: uppercase; letter-spacing: 2px; transition: all 0.3s; font-weight: bold;
+        }
+        .admin-link:hover { background: var(--blood-red); color: var(--gold); box-shadow: 0 0 20px rgba(139, 0, 0, 0.5); }
+        .cart-button {
+            margin-left: 18px; padding: 12px 20px; border: 2px solid var(--blood-red);
+            border-radius: 25px; background: rgba(255,255,255,0.08); color: #fff;
+            font-weight: 700; cursor: pointer; transition: all 0.3s;
+            display: inline-flex; align-items: center; gap: 10px; white-space: nowrap;
+        }
+        .cart-button:hover { background: var(--blood-red); border-color: var(--gold); }
+        .cart-button span { color: var(--gold); font-weight: 800; }
+        .cart-panel {
+            position: fixed; top: 0; right: 0; width: min(420px, 100%); height: 100%;
+            background: rgba(10, 10, 10, 0.98); transform: translateX(100%);
+            transition: transform 0.3s ease; z-index: 10002; box-shadow: -20px 0 60px rgba(0,0,0,0.45);
+            display: flex; flex-direction: column; padding: 22px;
+        }
+        .cart-panel.active { transform: translateX(0); }
+        .cart-panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .cart-panel-header h3 { color: var(--gold); font-size: 24px; margin: 0; }
+        .cart-panel-close {
+            border: none; background: transparent; color: #fff; font-size: 30px; cursor: pointer;
+            line-height: 1; padding: 0;
+        }
+        .cart-items-list { flex: 1; overflow-y: auto; display: grid; gap: 16px; padding-right: 4px; }
+        .cart-item { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,215,0,0.12);
+            border-radius: 20px; padding: 18px; }
+        .cart-item h4 { color: var(--gold); margin-bottom: 8px; font-size: 18px; }
+        .cart-item p { color: #aaa; font-size: 14px; line-height: 1.6; margin-bottom: 10px; }
+        .cart-item-meta { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+        .cart-item-qty, .cart-item-price { color: #ddd; font-size: 14px; }
+        .remove-item { border: none; background: rgba(255,255,255,0.08); color: #fff;
+            padding: 8px 14px; border-radius: 14px; cursor: pointer; transition: all 0.2s; }
+        .remove-item:hover { background: rgba(255,255,255,0.16); }
+        .cart-summary { margin-top: 20px; display: grid; gap: 14px; }
+        .cart-summary-row { display: flex; justify-content: space-between; color: #fff; font-size: 15px; }
+        .cart-summary-row strong { color: var(--gold); }
+        .cart-action-row { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 18px; }
+        .cart-action-btn { flex: 1; padding: 16px 18px; border-radius: 16px; border: none;
+            cursor: pointer; font-weight: 700; transition: all 0.3s; }
+        .cart-action-btn.primary { background: linear-gradient(45deg, var(--gold), var(--rose-gold)); color: var(--black); }
+        .cart-action-btn.secondary { background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.12); }
+        .cart-empty { color: #aaa; text-align: center; margin-top: 35px; font-size: 15px; }
+        .page-section { display: none; width: 100%; min-height: 100vh; padding-top: 100px; }
+        .page-section.active { display: block; }
+
+        .auth-screen {
+            min-height: calc(100vh - 100px); display: flex; align-items: center; justify-content: center;
+            padding: 120px 20px 80px; background: radial-gradient(circle at top, rgba(220,20,60,0.18), transparent 35%), linear-gradient(180deg, #0a0a0a 0%, #120505 100%);
+        }
+        .auth-box {
+            width: 100%; max-width: 460px; background: rgba(10, 10, 10, 0.95); border: 2px solid rgba(139, 0, 0, 0.35);
+            border-radius: 30px; padding: 45px 35px; text-align: center; box-shadow: 0 25px 70px rgba(0,0,0,0.55);
+        }
+        .auth-box h1 { color: var(--gold); font-size: 40px; letter-spacing: 4px; margin-bottom: 10px; font-family: 'Impact', sans-serif; }
+        .auth-box p { color: #aaa; margin-bottom: 35px; font-size: 15px; }
+        .locked header { display: none !important; }
+        .locked .page-section:not(#page-auth) { display: none !important; }
+        .locked body, .locked html { overflow: hidden; }
+        .auth-toggle { display: flex; gap: 10px; margin-bottom: 30px; }
+        .auth-toggle-btn {
+            flex: 1; padding: 16px 0; border-radius: 12px; border: 2px solid rgba(139, 0, 0, 0.25);
+            background: transparent; color: #ccc; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer;
+            transition: all 0.3s;
+        }
+        .auth-toggle-btn.active {
+            background: linear-gradient(45deg, var(--blood-red), var(--deep-red)); color: var(--white); border-color: var(--gold);
+        }
+        .auth-form { display: none; }
+        .auth-form.active { display: block; }
+        .auth-input { width: 100%; padding: 18px 20px; margin-bottom: 18px; background: rgba(255,255,255,0.04); border: 2px solid rgba(139, 0, 0, 0.25);
+            color: var(--white); border-radius: 12px; font-size: 15px; }
+        .auth-input:focus { outline: none; border-color: var(--blood-red); }
+        .password-container { position: relative; }
+        .password-toggle { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #888; font-size: 16px; cursor: pointer; }
+        .password-toggle:hover { color: var(--gold); }
+        .auth-btn {
+            width: 100%; padding: 20px 0; margin-top: 15px; border-radius: 18px;
+            background: linear-gradient(45deg, #c70000, #ff3b3b); border: 2px solid var(--blood-red);
+            color: var(--white); font-size: 18px; font-weight: 800;
+            text-transform: uppercase; letter-spacing: 2px; cursor: pointer;
+            transition: all 0.3s;
+        }
+        .auth-btn:hover {
+            transform: translateY(-2px); box-shadow: 0 15px 30px rgba(220, 20, 60, 0.45);
+        }
+        .auth-form .field-row { display: grid; grid-template-columns: 180px 1fr; gap: 12px; align-items: stretch; }
+        .country-selector { position: relative; width: 100%; }
+        .country-picker {
+            width: 100%; padding: 18px 20px; background: rgba(255,255,255,0.04); border: 2px solid rgba(139, 0, 0, 0.25);
+            color: var(--white); border-radius: 12px; font-size: 15px; text-align: left; cursor: pointer;
+        }
+        .country-list {
+            display: none; position: absolute; top: calc(100% + 8px); left: 0; right: 0;
+            background: rgba(10, 10, 10, 0.98); border: 2px solid rgba(139, 0, 0, 0.25); border-radius: 14px;
+            max-height: 240px; overflow-y: auto; z-index: 20; box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        }
+        .country-list button {
+            width: 100%; padding: 14px 18px; background: transparent; border: none;
+            color: #ddd; text-align: left; font-size: 14px; cursor: pointer;
+        }
+        .country-list button:hover { background: rgba(255,255,255,0.06); color: var(--gold); }
+        .country-list.show { display: block; }
+        .change-password-section { display: none; margin-top: 20px; text-align: left; }
+        .error-msg { color: var(--deep-red); font-size: 14px; margin-top: 15px; display: none; }
+        .meetups-section { padding: 100px 50px; background: linear-gradient(to bottom, var(--black), #0d0505); }
+        .meetup-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto;
+        }
+        .meetup-card {
+            background: linear-gradient(135deg, rgba(26,26,26,0.95), rgba(61,40,23,0.2));
+            border: 2px solid rgba(139,0,0,0.25); border-radius: 28px; padding: 40px;
+            transition: all 0.3s;
+        }
+        .meetup-card:hover { transform: translateY(-8px); border-color: var(--blood-red); box-shadow: 0 25px 60px rgba(139, 0, 0, 0.3); }
+        .meetup-card h3 { color: var(--gold); font-size: 28px; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 2px; }
+        .meetup-price { color: var(--deep-red); font-size: 42px; font-weight: bold; margin-bottom: 20px; }
+        .meetup-description { color: #aaa; font-size: 15px; line-height: 1.7; margin-bottom: 20px; }
+        .meetup-list { list-style: none; margin-bottom: 30px; color: #ccc; }
+        .meetup-list li { padding: 12px 0; border-bottom: 1px solid rgba(139, 0, 0, 0.15); }
+        .meetup-list li i { margin-right: 12px; color: var(--gold); }
+        .meetup-btn {
+            display: inline-block; padding: 18px 35px; border-radius: 999px;
+            background: linear-gradient(45deg, var(--blood-red), var(--deep-red)); color: var(--white); text-transform: uppercase;
+            font-weight: 700; letter-spacing: 1px; text-decoration: none; cursor: pointer; border: none;
+            transition: all 0.3s;
+        }
+        .meetup-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(220, 20, 60, 0.4); }
+        
+        /* HERO SECTION WITH AXL IMAGE */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center;
+            padding: 120px 50px 80px; position: relative;
+            background: linear-gradient(to right, rgba(0,0,0,0.9), rgba(0,0,0,0.3)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%230a0a0a" width="1200" height="600"/><text x="50%" y="50%" font-family="Impact" font-size="120" fill="%238B0000" opacity="0.1" text-anchor="middle">AXL ROSE</text></svg>');
+            background-size: cover; background-position: center;
+        }
+        .hero-content {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px;
+            align-items: center; width: 100%; max-width: none; margin: 0 auto;
+        }
+        .profile-section { text-align: center; }
+        .profile-image {
+            width: 350px; height: 350px; border-radius: 50%;
+            background: linear-gradient(135deg, var(--blood-red), var(--gold));
+            padding: 5px; margin: 0 auto 30px; position: relative;
+            box-shadow: 0 0 60px rgba(139, 0, 0, 0.5); animation: pulse 3s infinite;
+            overflow: hidden;
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 60px rgba(139, 0, 0, 0.5); }
+            50% { box-shadow: 0 0 100px rgba(220, 20, 60, 0.8); }
+        }
+        .profile-image-inner {
+            width: 100%; height: 100%; border-radius: 50%;
+            background: var(--dark-gray); display: flex;
+            align-items: center; justify-content: center; font-size: 120px;
+            overflow: hidden;
+        }
+        .profile-image-inner img {
+            width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
+        }
+        .profile-badge {
+            position: absolute; bottom: 20px; right: 20px;
+            background: var(--gold); color: var(--black); padding: 10px 25px;
+            border-radius: 30px; font-size: 14px; font-weight: bold;
+            text-transform: uppercase; box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+        .profile-info h1 {
+            font-size: 56px; margin-bottom: 10px; text-transform: uppercase;
+            letter-spacing: 5px;
+            background: linear-gradient(45deg, var(--gold), var(--rose-gold));
+            background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            font-family: 'Impact', sans-serif;
+        }
+        .profile-info .subtitle {
+            font-size: 24px; color: var(--deep-red); margin-bottom: 20px;
+            text-transform: uppercase; letter-spacing: 3px;
+        }
+        .profile-info .quote {
+            font-size: 18px; color: #aaa; font-style: italic;
+            border-left: 3px solid var(--blood-red); padding-left: 20px;
+            margin-bottom: 30px; line-height: 1.6;
+        }
+        .stats-row { display: flex; justify-content: center; gap: 40px; margin-top: 30px; }
+        .stat-item { text-align: center; }
+        .stat-number { font-size: 36px; font-weight: bold; color: var(--gold); display: block; }
+        .stat-label { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+        .cta-section { text-align: center; }
+        .cta-section h2 { font-size: 42px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 3px; }
+        .cta-section p { font-size: 18px; color: #aaa; margin-bottom: 40px; line-height: 1.6; }
+        .cta-button {
+            display: inline-block; padding: 25px 60px;
+            background: linear-gradient(45deg, var(--blood-red), var(--deep-red));
+            color: var(--white); text-decoration: none; font-size: 18px;
+            font-weight: bold; text-transform: uppercase; letter-spacing: 3px;
+            border-radius: 50px; transition: all 0.3s;
+            box-shadow: 0 10px 40px rgba(139, 0, 0, 0.4); border: 2px solid var(--gold); cursor: pointer;
+        }
+        .cta-button:hover {
+            transform: translateY(-5px); box-shadow: 0 20px 60px rgba(220, 20, 60, 0.6);
+            background: linear-gradient(45deg, var(--deep-red), var(--blood-red));
+        }
+        .cta-button.secondary {
+            background: rgba(255, 255, 255, 0.08); color: #fff;
+            border: 2px solid rgba(255, 215, 0, 0.45);
+            padding: 18px 40px;
+            margin-top: 20px;
+        }
+        .cta-button.secondary:hover {
+            background: rgba(255, 215, 0, 0.08);
+            color: var(--gold);
+        }
+        .language-selector { display: flex; align-items: center; margin-left: 18px; }
+        .language-selector select {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #fff;
+            padding: 10px 14px;
+            border-radius: 14px;
+            font-size: 14px;
+            cursor: pointer;
+            outline: none;
+            min-width: 150px;
+        }
+        .home-preview-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 25px;
+            margin-top: 40px; text-align: left;
+        }
+        .home-preview-card {
+            background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 215, 0, 0.12);
+            border-radius: 24px; padding: 30px; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        .home-preview-card h3 { color: var(--gold); margin-bottom: 15px; font-size: 22px; }
+        .home-preview-card p { color: #aaa; margin-bottom: 20px; line-height: 1.8; }
+        .home-about-extra {
+            background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 215, 0, 0.12);
+            border-radius: 24px; padding: 35px; margin-top: 40px; box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            text-align: left;
+        }
+        .home-about-extra h3 { color: var(--gold); margin-bottom: 18px; letter-spacing: 2px; }
+        .home-about-extra p { color: #aaa; margin-bottom: 16px; line-height: 1.8; }
+        .fan-reviews-section { margin-top: 50px; padding: 40px 30px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,215,0,0.12); border-radius: 24px; box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+        .fan-reviews-section h2 { color: var(--gold); margin-bottom: 25px; text-transform: uppercase; letter-spacing: 3px; }
+        .reviews-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+        .review-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,215,0,0.12); border-radius: 22px; padding: 28px; display: flex; flex-direction: column; justify-content: space-between; min-height: 170px; }
+        .review-card p { color: #ccc; margin-bottom: 20px; line-height: 1.8; }
+        .review-card strong { color: var(--gold); font-size: 15px; }
+        .newsletter-form { display: grid; grid-template-columns: 1fr auto; gap: 12px; }
+        .newsletter-form input {
+            padding: 16px 20px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255,255,255,0.05); color: #fff; font-size: 15px;
+        }
+        .newsletter-form button {
+            padding: 16px 24px; border-radius: 12px; border: none; background: var(--blood-red);
+            color: #fff; cursor: pointer; font-weight: bold; transition: background 0.3s;
+        }
+        .newsletter-form button:hover { background: var(--deep-red); }
+        .newsletter-message { margin-top: 12px; color: var(--success); font-size: 14px; min-height: 18px; }
+        .store-section, .news-section { padding: 100px 50px; width: 100%; max-width: none; margin: 0 auto; }
+        .store-grid, .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
+        .store-card, .news-card { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,215,0,0.12); border-radius: 24px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.25); }
+        .store-image { width: 100%; height: 230px; background-size: cover; background-position: center; }
+        .store-card { padding: 25px; display: flex; flex-direction: column; gap: 16px; }
+        .store-card h3, .news-card h3 { color: var(--gold); font-size: 22px; margin-bottom: 10px; }
+        .store-card p, .news-card p { color: #aaa; line-height: 1.7; }
+        .store-price { color: var(--blood-red); font-size: 24px; font-weight: bold; }
+        .store-card button { margin-top: auto; padding: 16px; border: none; border-radius: 14px; background: var(--blood-red); color: #fff; cursor: pointer; font-weight: 700; }
+        .store-card button:hover { background: var(--deep-red); }
+        .news-card { padding: 28px; position: relative; }
+        .news-tag { display: inline-block; background: rgba(255,215,0,0.12); color: var(--gold); padding: 8px 14px; border-radius: 999px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 18px; }
+        .news-card time { display: block; margin-top: 18px; color: #888; font-size: 13px; }
+        .newsletter-signup { margin-top: 40px; padding: 35px; border: 1px solid rgba(255,215,0,0.12); border-radius: 24px; background: rgba(255,255,255,0.04); }
+        .newsletter-signup h3 { color: var(--gold); margin-bottom: 12px; }
+        .newsletter-signup p { color: #aaa; margin-bottom: 24px; line-height: 1.7; }
+
+        /* VIDEO SECTION */
+        .videos-section {
+            padding: 100px 50px; background: linear-gradient(to bottom, var(--black), #0d0505);
+        }
+        .videos-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px; max-width: 1400px; margin: 0 auto;
+        }
+        .video-card {
+            background: linear-gradient(135deg, rgba(26,26,26,0.9), rgba(61,40,23,0.3));
+            border: 2px solid rgba(139, 0, 0, 0.3); border-radius: 20px; overflow: hidden;
+            transition: all 0.3s; cursor: pointer;
+        }
+        .video-card:hover {
+            transform: translateY(-10px); border-color: var(--blood-red);
+            box-shadow: 0 30px 60px rgba(139, 0, 0, 0.3);
+        }
+        .video-thumbnail {
+            width: 100%; height: 220px; background: linear-gradient(135deg, var(--blood-red), var(--gold));
+            display: flex; align-items: center; justify-content: center; position: relative;
+        }
+        .video-thumbnail i { font-size: 64px; color: var(--white); opacity: 0.9; }
+        .video-info { padding: 30px; }
+        .video-info h3 { color: var(--gold); font-size: 22px; margin-bottom: 10px; }
+        .video-info p { color: #888; font-size: 15px; line-height: 1.6; }
+
+        .video-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92);
+            display: none; align-items: center; justify-content: center; z-index: 10001; padding: 25px;
+        }
+        .video-modal.active { display: flex; }
+        .video-modal-content {
+            position: relative; width: min(1100px, 100%); max-height: 90%; background: rgba(10,10,10,0.98);
+            border: 2px solid rgba(255, 215, 0, 0.18); border-radius: 24px; overflow: hidden;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.7);
+        }
+        .video-modal-close {
+            position: absolute; top: 18px; right: 18px; width: 45px; height: 45px; border-radius: 50%;
+            background: rgba(255,255,255,0.08); color: var(--white); border: 1px solid rgba(255,255,255,0.12);
+            display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 20px;
+            transition: all 0.2s;
+        }
+        .video-modal-close:hover { background: rgba(255,255,255,0.16); }
+        .video-modal-body { padding: 25px; color: #eee; }
+        .video-modal-body h3 { margin-bottom: 12px; color: var(--gold); }
+        .video-modal-body p { color: #ccc; margin-bottom: 22px; line-height: 1.8; }
+        .video-modal video {
+            width: 100%; height: auto; max-height: 60vh; display: block; background: #000;
+        }
+
+        /* TOURS & TICKETS SECTION */
+        .tours-section {
+            padding: 100px 50px; background: linear-gradient(to bottom, #0d0505, var(--black));
+        }
+        .tour-card {
+            background: linear-gradient(135deg, rgba(26,26,26,0.9), rgba(61,40,23,0.3));
+            border: 2px solid rgba(139, 0, 0, 0.3); border-radius: 24px; padding: 40px;
+            margin-bottom: 30px; max-width: 1200px; margin-left: auto; margin-right: auto;
+            display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center;
+            transition: all 0.3s;
+        }
+        .tour-card:hover { border-color: var(--blood-red); box-shadow: 0 20px 40px rgba(139, 0, 0, 0.3); }
+        .tour-info h3 { color: var(--gold); font-size: 32px; margin-bottom: 15px; text-transform: uppercase; }
+        .tour-date { color: var(--deep-red); font-size: 18px; font-weight: bold; margin-bottom: 10px; }
+        .tour-venue { color: #888; font-size: 16px; margin-bottom: 20px; }
+        .tour-features { display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap; }
+        .tour-feature {
+            background: rgba(139, 0, 0, 0.2); border: 1px solid rgba(139, 0, 0, 0.3);
+            padding: 8px 20px; border-radius: 20px; font-size: 13px; color: #ccc;
+        }
+        .ticket-btn {
+            padding: 20px 50px; background: linear-gradient(45deg, var(--gold), var(--rose-gold));
+            color: var(--black); border: none; border-radius: 12px; font-size: 16px;
+            font-weight: bold; text-transform: uppercase; cursor: pointer; transition: all 0.3s;
+        }
+        .ticket-btn:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(255, 215, 0, 0.4); }
+
+        /* DONATION SECTION */
+        .donation-section {
+            padding: 100px 50px; background: linear-gradient(to bottom, var(--black), #0d0505);
+            text-align: center;
+        }
+        .donation-container {
+            max-width: 900px; margin: 0 auto;
+            background: linear-gradient(135deg, rgba(26,26,26,0.95), rgba(61,40,23,0.2));
+            border: 2px solid rgba(139, 0, 0, 0.3); border-radius: 24px; padding: 60px;
+        }
+        .donation-container::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(to right, var(--blood-red), var(--gold));
+        }
+        .donation-amounts {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px; margin: 40px 0;
+        }
+        .amount-btn {
+            padding: 25px; background: rgba(0, 0, 0, 0.5); border: 2px solid rgba(139, 0, 0, 0.3);
+            color: var(--white); border-radius: 16px; font-size: 24px; font-weight: bold;
+            cursor: pointer; transition: all 0.3s;
+        }
+        .amount-btn:hover, .amount-btn.selected {
+            background: linear-gradient(45deg, var(--blood-red), var(--deep-red));
+            border-color: var(--gold); transform: translateY(-5px);
+        }
+        .custom-amount {
+            width: 100%; padding: 20px; background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(139, 0, 0, 0.3); color: var(--white); border-radius: 12px;
+            font-size: 18px; text-align: center; margin-bottom: 30px;
+        }
+        .donate-submit-btn {
+            width: 100%; padding: 25px;
+            background: linear-gradient(45deg, var(--blood-red), var(--deep-red));
+            border: 2px solid var(--gold); color: var(--white); font-size: 18px;
+            font-weight: bold; text-transform: uppercase; letter-spacing: 3px;
+            border-radius: 12px; cursor: pointer; transition: all 0.3s;
+        }
+        .donate-submit-btn:hover {
+            transform: translateY(-3px); box-shadow: 0 15px 40px rgba(220, 20, 60, 0.5);
+        }
+
+        /* DONATION CONFIRMATION MODAL */
+        .donation-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95); z-index: 10000;
+            align-items: center; justify-content: center; padding: 20px;
+        }
+        .donation-modal.active { display: flex; }
+        .donation-modal-content {
+            background: linear-gradient(135deg, var(--dark-gray), rgba(61,40,23,0.3));
+            border: 3px solid var(--gold); border-radius: 30px; padding: 60px;
+            max-width: 600px; width: 100%; text-align: center;
+            box-shadow: 0 30px 80px rgba(255, 215, 0, 0.3);
+            animation: modalSlideIn 0.5s ease;
+        }
+        @keyframes modalSlideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .donation-modal-content h2 {
+            color: var(--gold); font-size: 36px; margin-bottom: 20px;
+            text-transform: uppercase; letter-spacing: 3px;
+        }
+        .donation-modal-content p {
+            color: #aaa; font-size: 18px; margin-bottom: 40px; line-height: 1.6;
+        }
+        .donation-amount-display {
+            font-size: 48px; color: var(--success); font-weight: bold;
+            margin-bottom: 40px; text-shadow: 0 0 20px rgba(0, 255, 136, 0.5);
+        }
+        .donation-buttons {
+            display: flex; gap: 20px; justify-content: center;
+        }
+        .donation-btn {
+            padding: 20px 50px; border-radius: 12px; font-size: 18px;
+            font-weight: bold; text-transform: uppercase; letter-spacing: 2px;
+            cursor: pointer; transition: all 0.3s; border: none;
+        }
+        .donation-btn-yes {
+            background: linear-gradient(45deg, var(--blood-red), var(--deep-red));
+            color: var(--white); border: 2px solid var(--gold);
+        }
+        .donation-btn-yes:hover {
+            transform: scale(1.05); box-shadow: 0 15px 40px rgba(220, 20, 60, 0.6);
+        }
+        .donation-btn-no {
+            background: transparent; color: #888;
+            border: 2px solid #555;
+        }
+        .donation-btn-no:hover {
+            border-color: var(--deep-red); color: var(--deep-red);
+        }
+
+        /* ABOUT SECTION */
+        .about-section { padding: 100px 50px; width: 100%; max-width: none; margin: 0 auto; }
+        .about-header { text-align: center; margin-bottom: 60px; }
+        .about-header h1 { font-size: 48px; color: var(--gold); text-transform: uppercase; letter-spacing: 5px; font-family: 'Impact', sans-serif; margin-bottom: 20px; }
+        .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+        .about-image { position: relative; }
+        .about-image-box {
+            width: 100%; height: 500px;
+            background: linear-gradient(135deg, var(--blood-red), var(--gold));
+            border-radius: 20px; padding: 5px;
+            box-shadow: 0 20px 60px rgba(139, 0, 0, 0.3);
+        }
+        .about-image-inner {
+            width: 100%; height: 100%; background: var(--dark-gray);
+            border-radius: 15px; display: flex; align-items: center; justify-content: center;
+            font-size: 150px; flex-direction: column; overflow: hidden;
+        }
+        .about-image-inner img { width: 100%; height: 100%; object-fit: cover; border-radius: 15px; }
+        .about-text h2 { color: var(--gold); font-size: 32px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 3px; }
+        .about-text p { color: #aaa; font-size: 16px; line-height: 1.8; margin-bottom: 20px; }
+        .about-text .highlight { color: var(--deep-red); font-weight: bold; }
+        .timeline { margin-top: 40px; }
+        .timeline-item {
+            border-left: 3px solid var(--blood-red); padding-left: 30px;
+            margin-bottom: 30px; position: relative;
+        }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -9px; top: 0;
+            width: 15px; height: 15px; background: var(--gold); border-radius: 50%;
+        }
+        .timeline-year { color: var(--gold); font-size: 14px; font-weight: bold; margin-bottom: 5px; }
+        .timeline-event { color: #aaa; font-size: 16px; }
+
+        /* MEMBERSHIP TIERS */
+        .tiers { padding: 100px 50px; background: linear-gradient(to bottom, var(--black), #0d0505); position: relative; width: 100%; max-width: none; }
+        .tiers::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+            background: linear-gradient(to right, transparent, var(--blood-red), transparent);
+        }
+        .section-title {
+            text-align: center; font-size: 48px; margin-bottom: 20px; color: var(--gold);
+            text-transform: uppercase; letter-spacing: 5px; font-family: 'Impact', sans-serif;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+        }
+        .section-subtitle { text-align: center; color: var(--deep-red); font-size: 18px; margin-bottom: 60px; text-transform: uppercase; letter-spacing: 2px; }
+        .tier-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px; max-width: 1200px; margin: 0 auto;
+        }
+        .tier-card {
+            background: linear-gradient(135deg, rgba(26,26,26,0.9), rgba(61,40,23,0.3));
+            border: 2px solid rgba(139, 0, 0, 0.3); border-radius: 20px; padding: 50px 40px;
+            text-align: center; transition: all 0.3s; position: relative; overflow: hidden;
+            backdrop-filter: blur(10px); cursor: pointer;
+        }
+        .tier-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(to right, var(--blood-red), var(--gold), var(--blood-red));
+        }
+        .tier-card:hover { transform: translateY(-10px); border-color: var(--blood-red); box-shadow: 0 30px 60px rgba(139, 0, 0, 0.3); }
+        .tier-card.vip { border-color: var(--gold); transform: scale(1.05); }
+        .tier-card.vip::after {
+            content: 'BACKSTAGE PASS'; position: absolute; top: 25px; right: -35px;
+            background: var(--gold); color: var(--black); padding: 8px 40px;
+            font-size: 12px; font-weight: bold; transform: rotate(45deg);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+        .tier-icon { font-size: 64px; margin-bottom: 25px; text-shadow: 0 0 30px rgba(255, 215, 0, 0.5); }
+        .tier-name { font-size: 32px; font-weight: bold; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 3px; }
+        .tier-price { font-size: 56px; color: var(--gold); margin-bottom: 30px; font-weight: bold; text-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+        .tier-price span { font-size: 18px; color: #888; }
+        .tier-features { list-style: none; margin-bottom: 40px; text-align: left; }
+        .tier-features li { padding: 15px 0; border-bottom: 1px solid rgba(139, 0, 0, 0.2); color: #ccc; font-size: 15px; }
+        .tier-features li i { color: var(--gold); margin-right: 15px; width: 20px; }
+        .select-tier-btn {
+            width: 100%; padding: 20px; background: transparent; border: 3px solid var(--blood-red);
+            color: var(--deep-red); border-radius: 12px; cursor: pointer; font-size: 16px;
+            font-weight: bold; text-transform: uppercase; letter-spacing: 2px; transition: all 0.3s;
+        }
+        .select-tier-btn:hover { background: var(--blood-red); color: var(--gold); box-shadow: 0 10px 30px rgba(139, 0, 0, 0.4); }
+
+        /* APPLICATION FORM */
+        .application-section { padding: 100px 50px; display: none; background: linear-gradient(to bottom, #0d0505, var(--black)); }
+        .application-section.active { display: block; }
+        .form-container {
+            max-width: 800px; margin: 0 auto;
+            background: linear-gradient(135deg, rgba(26,26,26,0.95), rgba(61,40,23,0.2));
+            border: 2px solid rgba(139, 0, 0, 0.3); border-radius: 24px; padding: 60px; position: relative;
+            backdrop-filter: blur(10px);
+        }
+        .form-container::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(to right, var(--blood-red), var(--gold));
+        }
+        .form-header { text-align: center; margin-bottom: 40px; }
+        .form-header h2 { font-size: 36px; color: var(--gold); margin-bottom: 15px; text-transform: uppercase; letter-spacing: 3px; }
+        .form-header p { color: #888; font-size: 16px; }
+        .selected-tier-display {
+            background: rgba(139, 0, 0, 0.2); border: 2px solid rgba(220, 20, 60, 0.3);
+            border-radius: 16px; padding: 30px; margin-bottom: 40px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .selected-tier-display h3 { color: var(--gold); font-size: 24px; margin-bottom: 5px; }
+        .selected-tier-display .price { color: var(--deep-red); font-size: 28px; font-weight: bold; }
+        .change-tier-btn {
+            background: transparent; border: 2px solid rgba(255, 255, 255, 0.2);
+            color: #888; padding: 12px 30px; border-radius: 25px; cursor: pointer; font-size: 14px; transition: all 0.3s;
+        }
+        .change-tier-btn:hover { border-color: var(--gold); color: var(--gold); }
+        .form-group { margin-bottom: 30px; }
+        .form-group label { display: block; color: var(--gold); font-size: 14px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 12px; font-weight: 600; }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 20px; background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(139, 0, 0, 0.3); color: var(--white);
+            border-radius: 12px; font-size: 16px; transition: all 0.3s;
+        }
+        .form-group input:focus, .form-group textarea:focus { outline: none; border-color: var(--blood-red); box-shadow: 0 0 20px rgba(139, 0, 0, 0.3); }
+        .submit-application-btn {
+            width: 100%; padding: 25px;
+            background: linear-gradient(45deg, var(--blood-red), var(--deep-red));
+            border: none; color: var(--white); font-size: 18px; font-weight: bold;
+            text-transform: uppercase; letter-spacing: 3px; border-radius: 12px;
+            cursor: pointer; transition: all 0.3s; margin-top: 30px; border: 2px solid var(--gold);
+        }
+        .submit-application-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(220, 20, 60, 0.5); }
+
+        /* CHAT PAGE - ENHANCED */
+        .chat-page { padding: 100px 20px 40px; min-height: 100vh; display: none; overflow-x: hidden; overflow-y: auto; }
+        .chat-page.active { display: block; }
+        .chat-container {
+            width: 100%; max-width: 1400px; margin: 0 auto;
+            background: linear-gradient(135deg, rgba(26,26,26,0.95), rgba(61,40,23,0.2));
+            border: 2px solid rgba(139, 0, 0, 0.3); border-radius: 24px; overflow: hidden;
+            backdrop-filter: blur(10px); min-height: calc(100vh - 200px);
+            display: grid; grid-template-columns: 350px 1fr;
+        }
+        .chat-sidebar {
+            background: rgba(0, 0, 0, 0.3); border-right: 2px solid rgba(139, 0, 0, 0.2);
+            padding: 30px; overflow-y: auto;
+        }
+        .chat-sidebar h3 { color: var(--gold); font-size: 18px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 2px; }
+        .user-info-card {
+            background: rgba(139, 0, 0, 0.1); border: 1px solid rgba(139, 0, 0, 0.3);
+            border-radius: 12px; padding: 20px; margin-bottom: 20px;
+        }
+        .user-info-card h4 { color: var(--white); font-size: 16px; margin-bottom: 10px; }
+        .user-info-card p { color: #888; font-size: 13px; margin-bottom: 5px; }
+        .status-badge {
+            display: inline-block; padding: 5px 15px; border-radius: 20px;
+            font-size: 12px; font-weight: bold; text-transform: uppercase; margin-top: 10px;
+        }
+        .status-pending { background: rgba(255, 165, 0, 0.2); color: var(--warning); border: 1px solid var(--warning); }
+        .status-approved { background: rgba(0, 255, 136, 0.2); color: var(--success); border: 1px solid var(--success); }
+        .chat-main { display: flex; flex-direction: column; height: 100%; }
+        .chat-header {
+            background: linear-gradient(to right, rgba(139, 0, 0, 0.3), rgba(0,0,0,0.5));
+            padding: 25px 35px; border-bottom: 2px solid rgba(139, 0, 0, 0.3);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .chat-header h2 { font-size: 24px; color: var(--gold); text-transform: uppercase; letter-spacing: 2px; }
+        .chat-header p { color: #888; font-size: 14px; }
+        .security-code-box {
+            background: rgba(0, 255, 136, 0.1); border: 2px solid var(--success);
+            border-radius: 12px; padding: 15px 25px; text-align: center; display: none;
+        }
+        .security-code-box.active { display: block; animation: pulse 2s infinite; }
+        .security-code-box h4 { color: var(--success); font-size: 12px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+        .security-code { font-size: 24px; font-weight: bold; color: var(--gold); font-family: 'Courier New', monospace; letter-spacing: 3px; }
+        
+        /* ENHANCED CHAT MESSAGES AREA WITH SCROLL */
+        .chat-messages {
+            flex: 1; overflow-y: auto; padding: 30px; background: rgba(0, 0, 0, 0.3);
+            display: flex; flex-direction: column; gap: 15px;
+            max-height: calc(100vh - 350px);
+            scrollbar-width: thin; scrollbar-color: var(--blood-red) var(--dark-gray);
+        }
+        .chat-messages::-webkit-scrollbar { width: 8px; }
+        .chat-messages::-webkit-scrollbar-track { background: var(--dark-gray); border-radius: 4px; }
+        .chat-messages::-webkit-scrollbar-thumb { background: var(--blood-red); border-radius: 4px; }
+        .chat-messages::-webkit-scrollbar-thumb:hover { background: var(--deep-red); }
+        
+        .message { max-width: 75%; display: flex; flex-direction: column; }
+        .message.user { align-self: flex-end; align-items: flex-end; }
+        .message.admin { align-self: flex-start; align-items: flex-start; }
+        .message-bubble {
+            padding: 15px 20px; border-radius: 20px; font-size: 15px;
+            line-height: 1.6; word-wrap: break-word;
+        }
+        .message.user .message-bubble {
+            background: linear-gradient(135deg, var(--blood-red), var(--deep-red));
+            color: var(--white); border-bottom-right-radius: 5px;
+        }
+        .message.admin .message-bubble {
+            background: rgba(255, 215, 0, 0.15); border: 1px solid rgba(255, 215, 0, 0.3);
+            color: var(--white); border-bottom-left-radius: 5px;
+        }
+        /* IMAGE STYLES IN CHAT */
+        .message-image {
+            max-width: 300px; max-height: 300px; border-radius: 15px;
+            margin-top: 10px; cursor: pointer; transition: transform 0.3s;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+        .message-image:hover { transform: scale(1.02); }
+        .message-meta { font-size: 12px; color: #666; margin-top: 5px; }
+        
+        /* ENHANCED CHAT INPUT AREA */
+        .chat-input-area {
+            display: flex; gap: 15px; padding: 25px 35px;
+            background: rgba(0, 0, 0, 0.7); border-top: 2px solid rgba(139, 0, 0, 0.3);
+            align-items: center; position: sticky; bottom: 0; z-index: 20;
+        }
+        .chat-input {
+            flex: 1; padding: 15px 25px; background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(139, 0, 0, 0.3); color: var(--white);
+            border-radius: 30px; font-size: 15px;
+        }
+        .chat-input:focus { outline: none; border-color: var(--blood-red); }
+        .send-btn {
+            padding: 15px 30px; background: linear-gradient(45deg, var(--blood-red), var(--deep-red));
+            border: none; color: var(--white); border-radius: 30px; cursor: pointer;
+            font-size: 16px; font-weight: bold; transition: all 0.3s;
+        }
+        .send-btn:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(139, 0, 0, 0.4); }
+        
+        /* IMAGE UPLOAD BUTTON */
+        .image-upload-btn {
+            padding: 15px 20px; background: rgba(255, 215, 0, 0.1);
+            border: 2px solid var(--gold); color: var(--gold);
+            border-radius: 30px; cursor: pointer; font-size: 18px;
+            transition: all 0.3s; display: flex; align-items: center; justify-content: center;
+        }
+        .image-upload-btn:hover {
+            background: var(--gold); color: var(--black);
+            transform: scale(1.05);
+        }
+        .image-upload-btn input { display: none; }
+        
+        /* MESSAGE LIMIT WARNING */
+        .message-limit-warning {
+            background: rgba(255, 165, 0, 0.2); border: 2px solid var(--warning);
+            color: var(--warning); padding: 15px; border-radius: 12px;
+            text-align: center; font-weight: bold; margin: 10px 35px;
+            display: none;
+        }
+        .message-limit-warning.show { display: block; }
+        
+        /* DONATION MESSAGE HIGHLIGHT */
+        .donation-message {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(255, 215, 0, 0.1)) !important;
+            border: 3px solid var(--success) !important;
+            padding: 25px !important;
+            font-size: 18px !important;
+            font-weight: bold !important;
+            color: var(--success) !important;
+        }
+        .donation-label {
+            display: inline-block; background: var(--success); color: var(--black);
+            padding: 5px 15px; border-radius: 20px; font-size: 12px;
+            font-weight: bold; margin-bottom: 10px; text-transform: uppercase;
+        }
+
+        /* CONTACT SECTION */
+        .contact-section { padding: 100px 50px; text-align: center; width: 100%; max-width: none; margin: 0 auto; }
+        .contact-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px; margin-top: 50px;
+        }
+        .contact-card {
+            background: linear-gradient(135deg, rgba(26,26,26,0.9), rgba(61,40,23,0.2));
+            border: 2px solid rgba(139, 0, 0, 0.3); border-radius: 20px; padding: 40px;
+            transition: all 0.3s;
+        }
+        .contact-card:hover { transform: translateY(-10px); border-color: var(--blood-red); }
+        .contact-card i { font-size: 48px; color: var(--gold); margin-bottom: 20px; }
+        .contact-card h3 { color: var(--white); margin-bottom: 10px; }
+        .contact-card p { color: #888; }
+
+        footer {
+            background: var(--dark-gray); border-top: 2px solid var(--blood-red);
+            padding: 60px; text-align: center; color: #666;
+        }
+        footer .logo { margin-bottom: 20px; }
+        footer p { margin-bottom: 10px; }
+        footer a { color: var(--deep-red); text-decoration: none; }
+
+        @media (max-width: 968px) {
+            .hero-content, .about-content { grid-template-columns: 1fr; }
+            .profile-image { width: 250px; height: 250px; }
+            .hero-content h1 { font-size: 42px; }
+            .tier-grid { grid-template-columns: 1fr; }
+            .tier-card.vip { transform: scale(1); }
+            .chat-container { grid-template-columns: 1fr; height: auto; min-width: auto; width: 100%; }
+            .chat-sidebar { border-right: none; border-bottom: 2px solid rgba(139, 0, 0, 0.2); }
+            .chat-messages { max-height: none; min-height: 300px; }
+            .chat-input-area { flex-wrap: wrap; padding: 20px; gap: 12px; }
+            .chat-input { width: 100%; min-width: 0; }
+            .send-btn, .image-upload-btn { width: 100%; }
+            .chat-header { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .chat-header p { max-width: 100%; }
+            .tour-card { grid-template-columns: 1fr; }
+            header { padding: 15px 20px; }
+            nav ul { gap: 20px; }
+            nav a { font-size: 12px; }
+            .donation-modal-content { padding: 40px 20px; }
+            .donation-buttons { flex-direction: column; }
+            .message-image { max-width: 200px; max-height: 200px; }
+        }
+
+        .hamburger {
+            display: none;
+            position: absolute;
+            right: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .menu-btn {
+            display: none;
+        }
+
+        @media (max-width: 980px) {
+            header { padding: 18px 20px; }
+            .hamburger { display: block; color: var(--blood-red); right: 20px; }
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(10, 10, 10, 0.96);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                gap: 0;
+                padding: 20px 0;
+                box-shadow: 0 5px 30px rgba(139, 0, 0, 0.3);
+            }
+            nav ul.show { display: flex; }
+            nav li { width: 100%; text-align: center; }
+            nav a { padding: 15px 20px; display: block; border-bottom: 1px solid rgba(139, 0, 0, 0.2); }
+            nav a:last-child { border-bottom: none; }
+        }
+
+        @media (min-width: 981px) {
+            .menu-btn { display: none; }
+            nav ul {
+                position: static;
+                left: auto;
+                top: auto;
+                width: auto;
+                height: auto;
+                background: transparent;
+                box-shadow: none;
+                flex-direction: row;
+                gap: 40px;
+                padding: 0;
+            }
+            nav li { width: auto; text-align: left; }
+            nav a { padding: 0; display: inline-block; border-bottom: none; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="bg-animation"></div>
+    <div class="stage-light"></div>
+    <div class="stage-light"></div>
+    <div class="stage-light"></div>
+
+    <header>
+        <div class="logo" onclick="showPage('home')">GUNS N' <span>ROSES</span></div>
+        <div class="language-selector">
+            <select id="languageSelect" onchange="changeLanguage(this.value)" aria-label="Choose language">
+                <option value="English">English</option>
+                <option value="Spanish">Español</option>
+                <option value="French">Français</option>
+                <option value="Portuguese">Português</option>
+                <option value="German">Deutsch</option>
+            </select>
+        </div>
+        <button class="cart-button" onclick="toggleCartPanel()" aria-label="Open shopping cart">
+            <i class="fas fa-shopping-cart"></i>
+            Cart <span id="cartCount">0</span>
+        </button>
+        <button class="hamburger" onclick="toggleMenu()"><i class="fas fa-bars"></i></button>
+        <nav>
+            <ul>
+                <li><a onclick="showPage('home')" class="nav-link active" data-page="home" data-translate="nav.home">Home</a></li>
+                <li><a onclick="showPage('videos')" class="nav-link" data-page="videos" data-translate="nav.videos">Videos</a></li>
+                <li><a onclick="showPage('store')" class="nav-link" data-page="store" data-translate="nav.store">Store</a></li>
+                <li><a onclick="showPage('news')" class="nav-link" data-page="news" data-translate="nav.news">News</a></li>
+                <li><a onclick="showPage('tours')" class="nav-link" data-page="tours" data-translate="nav.tours">Tours</a></li>
+                <li><a onclick="showPage('donate')" class="nav-link" data-page="donate" data-translate="nav.support">Support</a></li>
+                <li><a onclick="showPage('about')" class="nav-link" data-page="about" data-translate="nav.about">About Axl</a></li>
+                <li><a onclick="showPage('membership')" class="nav-link" data-page="membership" data-translate="nav.membership">Membership</a></li>
+                <li><a onclick="showPage('chat')" class="nav-link" data-page="chat" id="chatNav" style="display: none;" data-translate="nav.chat">Chat Admin</a></li>
+                <li><a onclick="showPage('meetups')" class="nav-link" data-page="meetups" data-translate="nav.meetups">Meetups</a></li>
+                <li><a onclick="showPage('contact')" class="nav-link" data-page="contact" data-translate="nav.contact">Contact</a></li>
+                <li><a href="admin.html" data-translate="nav.admin">Admin Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="cart-panel" id="cartPanel" aria-hidden="true">
+        <div class="cart-panel-header">
+            <h3>Shopping Cart</h3>
+            <button class="cart-panel-close" onclick="toggleCartPanel()" aria-label="Close cart panel">&times;</button>
+        </div>
+        <div class="cart-items-list" id="cartItemsList"></div>
+        <div class="cart-summary">
+            <div class="cart-summary-row"><span>Total items</span><strong id="cartTotalItems">0</strong></div>
+            <div class="cart-summary-row"><span>Subtotal</span><strong id="cartSubtotal">$0.00</strong></div>
+        </div>
+        <div class="cart-action-row">
+            <button class="cart-action-btn secondary" onclick="clearCart()">Clear Cart</button>
+            <button class="cart-action-btn primary" onclick="checkoutCart()">Checkout</button>
+        </div>
+    </div>
+
+    <!-- AUTH SECTION -->
+    <section id="page-auth" class="page-section active">
+        <div class="auth-screen">
+            <div class="auth-box">
+                <h1>Guns N' Roses</h1>
+                <p>Sign up now to access exclusive Axl Rose content, meetups, and booking options.</p>
+                <div class="auth-toggle">
+                    <button class="auth-toggle-btn" id="loginTab" onclick="showAuthForm('login')">Login</button>
+                    <button class="auth-toggle-btn active" id="signupTab" onclick="showAuthForm('signup')">Sign Up</button>
+                </div>
+                <div id="loginForm" class="auth-form">
+                    <input type="email" id="loginEmail" class="auth-input" placeholder="Email address" required>
+                    <div class="password-container">
+                        <input type="password" id="loginPassword" class="auth-input" placeholder="Password" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('loginPassword')"><i class="fas fa-eye"></i></button>
+                    </div>
+                    <button type="button" class="auth-btn" onclick="handleLogin()">Login</button>
+                    <p style="color: #888; font-size: 13px; margin-top: 12px;">Forgot your password? <a href="#" style="color: var(--gold); text-decoration: none;" onclick="toggleForgotPasswordSection(); return false;">Reset it here</a></p>
+                    <div id="forgotPasswordSection" class="change-password-section">
+                        <input type="email" id="resetEmail" class="auth-input" placeholder="Email address">
+                        <div class="password-container">
+                            <input type="text" id="resetLast4" class="auth-input" placeholder="Last 4 characters of old password">
+                        </div>
+                        <div class="password-container">
+                            <input type="password" id="resetNewPassword" class="auth-input" placeholder="New password">
+                            <button type="button" class="password-toggle" onclick="togglePassword('resetNewPassword')"><i class="fas fa-eye"></i></button>
+                        </div>
+                        <div class="password-container">
+                            <input type="password" id="resetConfirmPassword" class="auth-input" placeholder="Confirm new password">
+                            <button type="button" class="password-toggle" onclick="togglePassword('resetConfirmPassword')"><i class="fas fa-eye"></i></button>
+                        </div>
+                        <button type="button" class="auth-btn" onclick="handleForgotPasswordReset()">Reset Password</button>
+                    </div>
+                </div>
+                <div id="signupForm" class="auth-form active">
+                    <input type="text" id="signupName" class="auth-input" placeholder="Full name" required>
+                    <input type="email" id="signupEmail" class="auth-input" placeholder="Email address" required>
+                    <div class="password-container">
+                        <input type="password" id="signupPassword" class="auth-input" placeholder="Password" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('signupPassword')"><i class="fas fa-eye"></i></button>
+                    </div>
+                    <div class="password-container">
+                        <input type="password" id="signupConfirmPassword" class="auth-input" placeholder="Confirm password" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('signupConfirmPassword')"><i class="fas fa-eye"></i></button>
+                    </div>
+                    <div class="field-row">
+                        <div class="country-selector">
+                            <button type="button" class="country-picker" id="countryPicker" onclick="toggleCountryList();">Select country</button>
+                            <div class="country-list" id="countryList">
+                                <button type="button" onclick="selectCountry('United States', '+1')">United States (+1)</button>
+                                <button type="button" onclick="selectCountry('United Kingdom', '+44')">United Kingdom (+44)</button>
+                                <button type="button" onclick="selectCountry('Canada', '+1')">Canada (+1)</button>
+                                <button type="button" onclick="selectCountry('Australia', '+61')">Australia (+61)</button>
+                                <button type="button" onclick="selectCountry('Germany', '+49')">Germany (+49)</button>
+                                <button type="button" onclick="selectCountry('France', '+33')">France (+33)</button>
+                                <button type="button" onclick="selectCountry('India', '+91')">India (+91)</button>
+                                <button type="button" onclick="selectCountry('Brazil', '+55')">Brazil (+55)</button>
+                                <button type="button" onclick="selectCountry('Japan', '+81')">Japan (+81)</button>
+                                <button type="button" onclick="selectCountry('South Africa', '+27')">South Africa (+27)</button>
+                                <button type="button" onclick="selectCountry('Spain', '+34')">Spain (+34)</button>
+                                <button type="button" onclick="selectCountry('Mexico', '+52')">Mexico (+52)</button>
+                                <button type="button" onclick="selectCountry('Italy', '+39')">Italy (+39)</button>
+                                <button type="button" onclick="selectCountry('Netherlands', '+31')">Netherlands (+31)</button>
+                                <button type="button" onclick="selectCountry('Switzerland', '+41')">Switzerland (+41)</button>
+                                <button type="button" onclick="selectCountry('Serbia', '+381')">Serbia (+381)</button>
+                                <button type="button" onclick="selectCountry('Nigeria', '+234')">Nigeria (+234)</button>
+                            </div>
+                            <input type="hidden" id="signupCountry" value="">
+                            <input type="hidden" id="signupCountryCode" value="">
+                        </div>
+                        <input type="tel" id="signupPhone" class="auth-input" placeholder="Phone number" required>
+                    </div>
+                    <input type="text" id="signupAddress" class="auth-input" placeholder="Address" required>
+                    <button type="button" class="auth-btn" onclick="handleSignup()">Sign Up</button>
+                    <p style="color: #888; font-size: 13px; margin-top: 18px;">Already have an account? <a href="#" style="color: var(--gold); text-decoration: none;" onclick="showAuthForm('login'); return false;">Login here</a></p>
+                </div>
+                <div class="error-msg" id="authError"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOME / HERO SECTION -->
+    <section id="page-home" class="page-section">
+        <div class="hero">
+            <div class="hero-content">
+                <div class="profile-section">
+                    <div class="profile-image">
+                        <div class="profile-image-inner">
+                            <img src="https://kimi-web-img.moonshot.cn/img/www.billboard.com/7cac1e3700a0cb07b4800ede9d1bd9f9764aa45f.jpg" alt="Axl Rose">
+                        </div>
+                        <div class="profile-badge">Verified Artist</div>
+                    </div>
+                    <div class="stats-row">
+                        <div class="stat-item"><span class="stat-number">2.4M</span><span class="stat-label">Inner Circle</span></div>
+                        <div class="stat-item"><span class="stat-number">35</span><span class="stat-label">Years Legacy</span></div>
+                        <div class="stat-item"><span class="stat-number">VIP</span><span class="stat-label">Access Only</span></div>
+                    </div>
+                </div>
+                <div class="cta-section">
+                    <div class="profile-info">
+                        <h1>Axl Rose</h1>
+                        <div class="subtitle">Guns N' Roses • Official Inner Circle</div>
+                        <div class="quote">"Welcome to the jungle. Join my exclusive inner circle for behind-the-scenes access, unreleased content, and direct connection."</div>
+                    </div>
+                    <h2>Join The Inner Circle</h2>
+                    <p>Get exclusive access to Axl's world. Behind-the-scenes footage, unreleased tracks, personal messages, and VIP concert experiences.</p>
+                    <button class="cta-button" onclick="showPage('membership')"><i class="fas fa-ticket-alt"></i> Get Backstage Pass</button>
+                    <div class="home-preview-grid">
+                        <div class="home-preview-card">
+                            <h3 data-translate="home.merchTitle">Official Merchandise Drops</h3>
+                            <p data-translate="home.merchDescription">Shop new t-shirts, hoodies, posters, and signed memorabilia from Axl's inner circle collection.</p>
+                            <button class="cta-button secondary" data-translate="button.exploreStore" onclick="showPage('store')"><i class="fas fa-shopping-bag"></i> Explore Store</button>
+                        </div>
+                        <div class="home-preview-card">
+                            <h3 data-translate="home.newsletterTitle">Stay Updated</h3>
+                            <p data-translate="home.newsletterDescription">Subscribe to the official newsletter for tour alerts, merch releases, and Axl Rose news.</p>
+                            <div class="newsletter-form">
+                                <input type="email" id="homeNewsletterEmail" placeholder="Enter your email">
+                                <button type="button" onclick="subscribeNewsletter('homeNewsletterEmail', 'newsletterMessage')">Subscribe</button>
+                            </div>
+                            <div class="newsletter-message" id="newsletterMessage"></div>
+                        </div>
+                        <div class="home-preview-card">
+                            <h3 data-translate="home.chatTitle">Live Chat & Support</h3>
+                            <p data-translate="home.chatDescription">Need help or want to speak with the team? Open the live chat and get a fast response from our support bot.</p>
+                            <button class="cta-button secondary" data-translate="button.openChat" onclick="openSupportChat()"><i class="fas fa-comments"></i> Open Live Chat</button>
+                        </div>
+                    </div>
+                    <div class="home-about-extra">
+                        <h3>More About Axl Rose</h3>
+                        <p>Axl Rose is one of rock's most electrifying performers. From stage anthems to legendary studio sessions, he has built a career on passion, unpredictability, and the pure spirit of rock.</p>
+                        <p>He continues to redefine the genre with exclusive releases, rare live performances, and an inner circle experience for fans who want to go deeper.</p>
+                        <button class="cta-button secondary" onclick="showPage('about')"><i class="fas fa-info-circle"></i> Read Axl's Full Story</button>
+                    </div>
+                </div>
+            </div>
+            <div class="fan-reviews-section">
+                <h2>Fan Reviews</h2>
+                <div class="reviews-grid">
+                    <div class="review-card">
+                        <p>“Joined the inner circle and the merch dropped faster than a guitar solo. Love the vibe and the exclusive access!”</p>
+                        <strong>— Mina, Los Angeles</strong>
+                    </div>
+                    <div class="review-card">
+                        <p>“The fan cards are a perfect keepsake. The customer support chat was so quick — felt like real backstage treatment.”</p>
+                        <strong>— Jordan, London</strong>
+                    </div>
+                    <div class="review-card">
+                        <p>“Axl Rose content is unmatched. The newsletter is my go-to for show updates and new merch releases.”</p>
+                        <strong>— Sara, São Paulo</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIDEOS SECTION -->
+    <section id="page-videos" class="page-section">
+        <div class="videos-section">
+            <h2 class="section-title">Exclusive Videos</h2>
+            <div class="section-subtitle">Behind the scenes & live performances</div>
+            <div class="videos-grid" id="videosGrid"></div>
+        </div>
+    </section>
+
+    <div class="video-modal" id="videoModal" role="dialog" aria-modal="true" aria-labelledby="videoModalTitle">
+        <div class="video-modal-content">
+            <button class="video-modal-close" aria-label="Close video player" onclick="closeVideoModal()"><i class="fas fa-times"></i></button>
+            <div class="video-modal-body">
+                <h3 id="videoModalTitle">Now Playing</h3>
+                <p id="videoModalDescription"></p>
+                <div style="position: relative; width: 100%; padding-top: 56.25%; background: #000; border-radius: 20px; overflow: hidden;">
+                    <iframe id="videoPlayer" src="" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section id="page-store" class="page-section">
+        <div class="store-section">
+            <h2 class="section-title">Official Merchandise</h2>
+            <div class="section-subtitle">Gear up with Axl Rose-approved collectibles</div>
+            <div class="store-grid">
+                <div class="store-card">
+                    <div class="store-image" style="background-image: url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=800&q=80');"></div>
+                    <h3>Guns N' Roses Tour Tee</h3>
+                    <p>Premium black tour t-shirt with vintage Axl Rose artwork.</p>
+                    <div class="store-price">$45</div>
+                    <button onclick="buyMerch('Tour Tee', '$45')">Add to Cart</button>
+                </div>
+                <div class="store-card">
+                    <div class="store-image" style="background-image: url('https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?auto=format&fit=crop&w=800&q=80');"></div>
+                    <h3>Signed Poster</h3>
+                    <p>Limited edition autographed poster from the latest tour.</p>
+                    <div class="store-price">$120</div>
+                    <button onclick="buyMerch('Signed Poster', '$120')">Add to Cart</button>
+                </div>
+                <div class="store-card">
+                    <div class="store-image" style="background-image: url('https://images.unsplash.com/photo-1520975911589-ab63f276d0de?auto=format&fit=crop&w=800&q=80');"></div>
+                    <h3>Leather Jacket Patch Kit</h3>
+                    <p>Official Guns N' Roses patch set for jackets and bags.</p>
+                    <div class="store-price">$30</div>
+                    <button onclick="buyMerch('Patch Kit', '$30')">Add to Cart</button>
+                </div>
+                <div class="store-card">
+                    <div class="store-image" style="background-image: url('https://images.unsplash.com/photo-1551854838-dd4aac8e6a4b?auto=format&fit=crop&w=800&q=80');"></div>
+                    <h3>Collector's Hoodie</h3>
+                    <p>Heavyweight hoodie with gold band logo and tour dates.</p>
+                    <div class="store-price">$85</div>
+                    <button onclick="buyMerch('Collector&apos;s Hoodie', '$85')">Add to Cart</button>
+                </div>
+                <div class="store-card">
+                    <div class="store-image" style="background-image: url('https://images.unsplash.com/photo-1491553895911-0055eca6402d?auto=format&fit=crop&w=800&q=80');"></div>
+                    <h3>Axl Rose Cap</h3>
+                    <p>Embroidered snapback cap with iconic Guns N' Roses design.</p>
+                    <div class="store-price">$28</div>
+                    <button onclick="buyMerch('Axl Rose Cap', '$28')">Add to Cart</button>
+                </div>
+                <div class="store-card">
+                    <div class="store-image" style="background-image: url('https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&w=800&q=80');"></div>
+                    <h3>Vintage Record Box</h3>
+                    <p>Collector's vinyl set featuring classic Guns N' Roses albums.</p>
+                    <div class="store-price">$150</div>
+                    <button data-translate="button.addToCart" onclick="buyMerch('Vintage Record Box', '$150')">Add to Cart</button>
+                </div>
+                <div class="store-card">
+                    <div class="store-image" style="background-image: url('https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=800&q=80');"></div>
+                    <h3>Axl Fan Card Pack</h3>
+                    <p>Limited edition fan cards featuring artwork, tour dates, and VIP codes.</p>
+                    <div class="store-price">$20</div>
+                    <button data-translate="button.addToCart" onclick="buyMerch('Fan Card Pack', '$20')">Add to Cart</button>
+                </div>
+                <div class="store-card">
+                    <div class="store-image" style="background-image: url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80');"></div>
+                    <h3>Golden Fan Membership Card</h3>
+                    <p>Exclusive collectible card with premium membership status and special perks.</p>
+                    <div class="store-price">$75</div>
+                    <button data-translate="button.addToCart" onclick="buyMerch('Golden Fan Membership Card', '$75')">Add to Cart</button>
+                </div>
+                <div class="store-card">
+                    <div class="store-image" style="background-image: url('https://images.unsplash.com/photo-1511376777868-611b54f68947?auto=format&fit=crop&w=800&q=80');"></div>
+                    <h3>Signed Guitar</h3>
+                    <p>Authentic signed guitar from Axl Rose with certificate of authenticity.</p>
+                    <div class="store-price">$1299</div>
+                    <button data-translate="button.addToCart" onclick="buyMerch('Signed Guitar', '$1299')">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="page-news" class="page-section">
+        <div class="news-section">
+            <h2 class="section-title">Latest News</h2>
+            <div class="section-subtitle">Axl Rose updates, tour announcements, and merch drops</div>
+            <div class="news-grid" id="newsGrid"></div>
+            <div class="newsletter-signup">
+                <h3>Join the Official Newsletter</h3>
+                <p>Never miss announcements, presale codes, and exclusive Axl content.</p>
+                <div class="newsletter-form">
+                    <input type="email" id="newsPageEmail" placeholder="Email address">
+                    <button type="button" onclick="subscribeNewsletter('newsPageEmail', 'newsPageMessage')">Subscribe</button>
+                </div>
+                <div class="newsletter-message" id="newsPageMessage"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TOURS & TICKETS SECTION -->
+    <section id="page-tours" class="page-section">
+        <div class="tours-section">
+            <h2 class="section-title">Upcoming Tours & Shows</h2>
+            <div class="section-subtitle">Book your tickets now</div>
+            
+            <div class="tour-card">
+                <div class="tour-info">
+                    <div class="tour-date"><i class="fas fa-calendar-alt"></i> June 15, 2026</div>
+                    <h3>Stadium Tour - Los Angeles</h3>
+                    <div class="tour-venue"><i class="fas fa-map-marker-alt"></i> SoFi Stadium, Los Angeles, CA</div>
+                    <div class="tour-features">
+                        <span class="tour-feature"><i class="fas fa-check"></i> VIP Meet & Greet</span>
+                        <span class="tour-feature"><i class="fas fa-check"></i> Backstage Access</span>
+                        <span class="tour-feature"><i class="fas fa-check"></i> Signed Merch</span>
+                    </div>
+                    <p style="color: #888; font-size: 15px;">Experience the ultimate Guns N' Roses show with exclusive VIP packages including meet and greet with Axl Rose.</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 36px; color: var(--gold); font-weight: bold; margin-bottom: 20px;">$299</div>
+                    <button class="ticket-btn" onclick="bookTicket('LA Stadium Tour')"><i class="fas fa-ticket-alt"></i> Book Now</button>
+                </div>
+            </div>
+
+            <div class="tour-card">
+                <div class="tour-info">
+                    <div class="tour-date"><i class="fas fa-calendar-alt"></i> July 22, 2026</div>
+                    <h3>Madison Square Garden - New York</h3>
+                    <div class="tour-venue"><i class="fas fa-map-marker-alt"></i> Madison Square Garden, New York, NY</div>
+                    <div class="tour-features">
+                        <span class="tour-feature"><i class="fas fa-check"></i> Premium Seating</span>
+                        <span class="tour-feature"><i class="fas fa-check"></i> Soundcheck Access</span>
+                        <span class="tour-feature"><i class="fas fa-check"></i> Exclusive Poster</span>
+                        <span class="tour-feature"><i class="fas fa-check"></i> Meet & Greet Add-On</span>
+                    </div>
+                    <p style="color: #888; font-size: 15px;">The legendary venue hosts the legendary band. Don't miss this historic night.</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 36px; color: var(--gold); font-weight: bold; margin-bottom: 20px;">$399</div>
+                    <button class="ticket-btn" onclick="bookTicket('MSG New York')"><i class="fas fa-ticket-alt"></i> Book Now</button>
+                </div>
+            </div>
+
+            <div class="tour-card">
+                <div class="tour-info">
+                    <div class="tour-date"><i class="fas fa-calendar-alt"></i> August 10, 2026</div>
+                    <h3>Wembley Stadium - London</h3>
+                    <div class="tour-venue"><i class="fas fa-map-marker-alt"></i> Wembley Stadium, London, UK</div>
+                    <div class="tour-features">
+                        <span class="tour-feature"><i class="fas fa-check"></i> Front Row Access</span>
+                        <span class="tour-feature"><i class="fas fa-check"></i> After Party</span>
+                        <span class="tour-feature"><i class="fas fa-check"></i> Limited Edition Vinyl</span>
+                    </div>
+                    <p style="color: #888; font-size: 15px;">Guns N' Roses returns to Wembley for an unforgettable night of rock and roll.</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 36px; color: var(--gold); font-weight: bold; margin-bottom: 20px;">£350</div>
+                    <button class="ticket-btn" onclick="bookTicket('Wembley London')"><i class="fas fa-ticket-alt"></i> Book Now</button>
+                </div>
+            </div>
+
+            <div class="tour-card">
+                <div class="tour-info">
+                    <div class="tour-date"><i class="fas fa-calendar-alt"></i> September 5, 2026</div>
+                    <h3>Tokyo Dome - Tokyo</h3>
+                    <div class="tour-venue"><i class="fas fa-map-marker-alt"></i> Tokyo Dome, Tokyo, Japan</div>
+                    <div class="tour-features">
+                        <span class="tour-feature"><i class="fas fa-check"></i> VIP Lounge</span>
+                        <span class="tour-feature"><i class="fas fa-check"></i> Photo Opportunity</span>
+                        <span class="tour-feature"><i class="fas fa-check"></i> Japanese Exclusive Merch</span>
+                        <span class="tour-feature"><i class="fas fa-check"></i> Meet & Greet Experience</span>
+                    </div>
+                    <p style="color: #888; font-size: 15px;">The Asian leg of the tour kicks off in Tokyo with special surprises for fans.</p>
+                </div>
+                <div style="text-align: center;">
+                    <div style="font-size: 36px; color: var(--gold); font-weight: bold; margin-bottom: 20px;">¥45,000</div>
+                    <button class="ticket-btn" onclick="bookTicket('Tokyo Dome')"><i class="fas fa-ticket-alt"></i> Book Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MEETUPS SECTION -->
+    <section id="page-meetups" class="page-section">
+        <div class="meetups-section">
+            <h2 class="section-title">Meet & Greet Experiences</h2>
+            <div class="section-subtitle">Book one-on-one and VIP meet-and-greet access with Axl Rose.</div>
+            <div class="meetup-grid">
+                <div class="meetup-card">
+                    <h3>Signature Meet-Up</h3>
+                    <div class="meetup-price">$999</div>
+                    <p class="meetup-description">An intimate one-on-one meet-and-greet with signed photo opportunity, VIP entrance, and a collectible keepsake.</p>
+                    <ul class="meetup-list">
+                        <li><i class="fas fa-check"></i> 20-minute personal meet-up</li>
+                        <li><i class="fas fa-check"></i> Signed limited edition poster</li>
+                        <li><i class="fas fa-check"></i> Backstage tour highlights</li>
+                    </ul>
+                    <button class="meetup-btn" onclick="requestMeetup('Signature Meet-Up', '$999')">Meet Up Now</button>
+                </div>
+                <div class="meetup-card">
+                    <h3>VIP Backstage Meet-Up</h3>
+                    <div class="meetup-price">$1,999</div>
+                    <p class="meetup-description">Experience an enhanced backstage meet-up with premium access, custom photo moments, and a guided VIP tour.</p>
+                    <ul class="meetup-list">
+                        <li><i class="fas fa-check"></i> 40-minute VIP meet-up</li>
+                        <li><i class="fas fa-check"></i> Private backstage tour</li>
+                        <li><i class="fas fa-check"></i> Exclusive signed merch package</li>
+                    </ul>
+                    <button class="meetup-btn" onclick="requestMeetup('VIP Backstage Meet-Up', '$1,999')">Meet Up Now</button>
+                </div>
+                <div class="meetup-card">
+                    <h3>Acoustic Lounge Meet-Up</h3>
+                    <div class="meetup-price">$1,299</div>
+                    <p class="meetup-description">Join a small acoustic lounge with Axl for a signed set list, meet-and-greet, and stories from the road.</p>
+                    <ul class="meetup-list">
+                        <li><i class="fas fa-check"></i> 30-minute meet & greet</li>
+                        <li><i class="fas fa-check"></i> Signed acoustic set list</li>
+                        <li><i class="fas fa-check"></i> VIP lounge access</li>
+                    </ul>
+                    <button class="meetup-btn" onclick="requestMeetup('Acoustic Lounge Meet-Up', '$1,299')">Meet Up Now</button>
+                </div>
+                <div class="meetup-card">
+                    <h3>Legendary Reunion Meet-Up</h3>
+                    <div class="meetup-price">$2,499</div>
+                    <p class="meetup-description">Join an exclusive small group experience with Axl and receive photo opportunities, stories from the road, and a commemorative gift.</p>
+                    <ul class="meetup-list">
+                        <li><i class="fas fa-check"></i> 30-minute group meet-up</li>
+                        <li><i class="fas fa-check"></i> Group photo with Axl</li>
+                        <li><i class="fas fa-check"></i> Collectible tour laminate and poster</li>
+                    </ul>
+                    <button class="meetup-btn" onclick="requestMeetup('Legendary Reunion Meet-Up', '$2,499')">Meet Up Now</button>
+                </div>
+                <div class="meetup-card">
+                    <h3>Platinum Fan Meet & Greet</h3>
+                    <div class="meetup-price">$3,299</div>
+                    <p class="meetup-description">The ultimate fan meet-and-greet with dinner, signed guitar, personal photo and a dedicated VIP host.</p>
+                    <ul class="meetup-list">
+                        <li><i class="fas fa-check"></i> 45-minute private meet-up</li>
+                        <li><i class="fas fa-check"></i> Signed guitar or memorabilia</li>
+                        <li><i class="fas fa-check"></i> Exclusive commemorative gift</li>
+                    </ul>
+                    <button class="meetup-btn" onclick="requestMeetup('Platinum Fan Meet & Greet', '$3,299')">Meet Up Now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DONATION / SUPPORT SECTION -->
+    <section id="page-donate" class="page-section">
+        <div class="donation-section">
+            <h2 class="section-title">Support The Legacy</h2>
+            <div class="section-subtitle">Your contribution keeps the music alive</div>
+            
+            <div class="donation-container" style="position: relative;">
+                <p style="color: #aaa; font-size: 18px; line-height: 1.8; margin-bottom: 30px;">
+                    Your generous donations help support new music production, tour logistics, and charitable causes close to Axl's heart. Every contribution makes a difference.
+                </p>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; margin: 40px 0;">
+                    <div style="text-align: center; padding: 30px; background: rgba(0,0,0,0.3); border-radius: 16px; border: 1px solid rgba(139,0,0,0.3);">
+                        <i class="fas fa-music" style="font-size: 40px; color: var(--gold); margin-bottom: 15px;"></i>
+                        <h4 style="color: var(--white); margin-bottom: 10px;">New Music</h4>
+                        <p style="color: #888; font-size: 14px;">Fund upcoming albums and unreleased tracks</p>
+                    </div>
+                    <div style="text-align: center; padding: 30px; background: rgba(0,0,0,0.3); border-radius: 16px; border: 1px solid rgba(139,0,0,0.3);">
+                        <i class="fas fa-guitar" style="font-size: 40px; color: var(--gold); margin-bottom: 15px;"></i>
+                        <h4 style="color: var(--white); margin-bottom: 10px;">Tour Support</h4>
+                        <p style="color: #888; font-size: 14px;">Help bring the show to more cities worldwide</p>
+                    </div>
+                    <div style="text-align: center; padding: 30px; background: rgba(0,0,0,0.3); border-radius: 16px; border: 1px solid rgba(139,0,0,0.3);">
+                        <i class="fas fa-heart" style="font-size: 40px; color: var(--gold); margin-bottom: 15px;"></i>
+                        <h4 style="color: var(--white); margin-bottom: 10px;">Charity</h4>
+                        <p style="color: #888; font-size: 14px;">Support music education for underprivileged youth</p>
+                    </div>
+                </div>
+
+                <h3 style="color: var(--gold); margin: 40px 0 20px; text-transform: uppercase; letter-spacing: 2px;">Select Amount</h3>
+                <div class="donation-amounts">
+                    <button class="amount-btn" onclick="selectAmount(this, 25)">$25</button>
+                    <button class="amount-btn" onclick="selectAmount(this, 50)">$50</button>
+                    <button class="amount-btn" onclick="selectAmount(this, 100)">$100</button>
+                    <button class="amount-btn" onclick="selectAmount(this, 250)">$250</button>
+                    <button class="amount-btn" onclick="selectAmount(this, 500)">$500</button>
+                    <button class="amount-btn" onclick="selectAmount(this, 1000)">$1,000</button>
+                </div>
+                
+                <input type="number" class="custom-amount" id="customAmount" placeholder="Or enter custom amount ($)" onchange="clearSelection()">
+                
+                <button class="donate-submit-btn" onclick="showDonationConfirmation()">
+                    <i class="fas fa-heart"></i> Complete Donation
+                </button>
+                <button class="donate-submit-btn" style="margin-top: 15px; background: var(--blood-red);" onclick="openSupportChat()">
+                    <i class="fas fa-comments"></i> Chat with Admin
+                </button>
+                
+                <p style="color: #666; font-size: 13px; margin-top: 20px;">
+                    <i class="fas fa-lock"></i> Secure payment processing. All donations are tax-deductible where applicable.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- DONATION CONFIRMATION MODAL -->
+    <div class="donation-modal" id="donationModal">
+        <div class="donation-modal-content">
+            <i class="fas fa-heart" style="font-size: 64px; color: var(--deep-red); margin-bottom: 20px;"></i>
+            <h2>Thank You For Your Donation!</h2>
+            <p>Your generous contribution helps keep the rock alive. Would you like to chat with our management team to complete the payment process?</p>
+            <div class="donation-amount-display" id="modalDonationAmount">$0</div>
+            <div class="donation-buttons">
+                <button class="donation-btn donation-btn-yes" onclick="confirmDonationYes()">
+                    <i class="fas fa-check"></i> YES, Chat Now
+                </button>
+                <button class="donation-btn donation-btn-no" onclick="confirmDonationNo()">
+                    <i class="fas fa-times"></i> NO, Maybe Later
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ABOUT SECTION -->
+    <section id="page-about" class="page-section">
+        <div class="about-section">
+            <div class="about-header">
+                <h1>The Legend of Axl Rose</h1>
+                <p style="color: #888; font-size: 18px;">From Lafayette to Rock Immortality</p>
+            </div>
+            <div class="about-content">
+                <div class="about-image">
+                    <div class="about-image-box">
+                        <div class="about-image-inner">
+                            <img src="https://kimi-web-img.moonshot.cn/img/townsquare.media/dba58297ca8194e9f21e0422ae068604651f5026.jpg" alt="Axl Rose Performance">
+                        </div>
+                    </div>
+                </div>
+                <div class="about-text">
+                    <h2>The Voice of a Generation</h2>
+                    <p><span class="highlight">W. Axl Rose</span> (born William Bruce Rose Jr., February 6, 1962) is an American musician, singer, songwriter, and record producer. He is best known as the lead vocalist and lyricist of the hard rock band <span class="highlight">Guns N' Roses</span>, a position he has held since the band's inception in 1985.</p>
+                    <p>With his powerful wide-ranging voice, Rose has been named one of the greatest singers of all time by various media outlets, including Rolling Stone and NME. His distinctive vocal style, combining elements of rock, blues, and punk, has influenced countless artists across generations.</p>
+                    <p>Born in Lafayette, Indiana, Rose had a troubled childhood before moving to Los Angeles in 1982. It was there he formed Guns N' Roses, which would go on to become one of the best-selling acts in history, with over 100 million records sold worldwide.</p>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <div class="timeline-year">1987</div>
+                            <div class="timeline-event">Released "Appetite for Destruction" - Best-selling debut album of all time</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">1991</div>
+                            <div class="timeline-event">Released "Use Your Illusion I & II" - Simultaneous #1 and #2 albums</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2012</div>
+                            <div class="timeline-event">Inducted into Rock and Roll Hall of Fame</div>
+                        </div>
+                        <div class="timeline-item">
+                            <div class="timeline-year">2016</div>
+                            <div class="timeline-event">Not in This Lifetime... Tour - Reunion with Slash and Duff</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MEMBERSHIP TIERS -->
+    <section id="page-membership" class="page-section">
+        <div class="tiers">
+            <h2 class="section-title">Choose Your Access Level</h2>
+            <div class="section-subtitle">Three tiers of exclusive rock star access</div>
+            <div class="tier-grid">
+                <div class="tier-card" onclick="selectTier('roadie', '$49/month')">
+                    <div class="tier-icon">🎸</div>
+                    <h3 class="tier-name" style="color: #c0c0c0;">Roadie</h3>
+                    <div class="tier-price">$49<span>/month</span></div>
+                    <ul class="tier-features">
+                        <li><i class="fas fa-check"></i> Exclusive newsletter</li>
+                        <li><i class="fas fa-check"></i> Behind-the-scenes photos</li>
+                        <li><i class="fas fa-check"></i> Monthly live Q&A</li>
+                        <li><i class="fas fa-check"></i> Community access</li>
+                        <li><i class="fas fa-check"></i> Early ticket access</li>
+                    </ul>
+                    <button class="select-tier-btn">Join as Roadie</button>
+                </div>
+                <div class="tier-card vip" onclick="selectTier('vip', '$149/month')">
+                    <div class="tier-icon">🎤</div>
+                    <h3 class="tier-name" style="color: var(--gold);">VIP Backstage</h3>
+                    <div class="tier-price">$149<span>/month</span></div>
+                    <ul class="tier-features">
+                        <li><i class="fas fa-check"></i> Everything in Roadie</li>
+                        <li><i class="fas fa-check"></i> Unreleased tracks & demos</li>
+                        <li><i class="fas fa-check"></i> Personal video messages</li>
+                        <li><i class="fas fa-check"></i> Virtual meet & greets</li>
+                        <li><i class="fas fa-check"></i> Signed merchandise</li>
+                        <li><i class="fas fa-check"></i> Priority concert seating</li>
+                    </ul>
+                    <button class="select-tier-btn">Get VIP Access</button>
+                </div>
+                <div class="tier-card" onclick="selectTier('innercircle', '$499/month')">
+                    <div class="tier-icon">👑</div>
+                    <h3 class="tier-name" style="color: var(--deep-red);">Inner Circle</h3>
+                    <div class="tier-price">$499<span>/month</span></div>
+                    <ul class="tier-features">
+                        <li><i class="fas fa-check"></i> Everything in VIP</li>
+                        <li><i class="fas fa-check"></i> 1-on-1 video calls with Axl</li>
+                        <li><i class="fas fa-check"></i> Studio session invites</li>
+                        <li><i class="fas fa-check"></i> Private concert access</li>
+                        <li><i class="fas fa-check"></i> Custom guitar lessons</li>
+                        <li><i class="fas fa-check"></i> Lifetime legacy status</li>
+                    </ul>
+                    <button class="select-tier-btn">Join Inner Circle</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- APPLICATION FORM -->
+    <section id="page-application" class="page-section application-section">
+        <div class="form-container">
+            <div class="form-header">
+                <h2><i class="fas fa-guitar"></i> Complete Your Application</h2>
+                <p>Join the most exclusive rock community in the world</p>
+            </div>
+            <div class="selected-tier-display">
+                <div>
+                    <small style="color: #888; text-transform: uppercase; font-size: 12px; letter-spacing: 2px;">Selected Access Level</small>
+                    <h3 id="selectedTierName">VIP Backstage</h3>
+                    <div class="price" id="selectedTierPrice">$149/month</div>
+                </div>
+                <button class="change-tier-btn" onclick="changeTier()"><i class="fas fa-arrow-left"></i> Change Selection</button>
+            </div>
+            <form id="applicationForm">
+                <div class="form-group">
+                    <label><i class="fas fa-user"></i> Full Name *</label>
+                    <input type="text" id="applicantName" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-envelope"></i> Email Address *</label>
+                    <input type="email" id="applicantEmail" required placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-phone"></i> Phone Number *</label>
+                    <input type="tel" id="applicantPhone" required placeholder="+1 (555) 000-0000">
+                </div>
+                <div class="form-group">
+                    <label><i class="fas fa-comment"></i> Why do you want to join the Inner Circle?</label>
+                    <textarea id="applicantMessage" rows="4" placeholder="Tell us about your passion for the music..."></textarea>
+                </div>
+                <button type="submit" class="submit-application-btn"><i class="fas fa-paper-plane"></i> Submit & Chat with Admin</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- CHAT PAGE - ENHANCED -->
+    <section id="page-chat" class="page-section chat-page">
+        <div class="chat-container">
+            <div class="chat-sidebar">
+                <h3>Your Info</h3>
+                <div class="user-info-card" id="userInfoCard">
+                    <h4 id="chatUserName">Loading...</h4>
+                    <p id="chatUserEmail">...</p>
+                    <p id="chatUserTier">...</p>
+                    <span class="status-badge status-pending" id="chatUserStatus">Pending</span>
+                </div>
+                <div style="margin-top: 30px; padding: 20px; background: rgba(139, 0, 0, 0.1); border-radius: 12px;">
+                    <h4 style="color: var(--gold); margin-bottom: 10px; font-size: 14px;">INSTRUCTIONS</h4>
+                    <p style="color: #888; font-size: 13px; line-height: 1.6;">
+                        Chat with our admin team to complete your payment verification. Once approved, you'll receive your exclusive security code here. You can continue chatting even after approval!
+                    </p>
+                </div>
+                <div style="margin-top: 20px; padding: 20px; background: rgba(0, 255, 136, 0.1); border-radius: 12px; border: 1px solid var(--success); display: none;" id="approvedInfo">
+                    <h4 style="color: var(--success); margin-bottom: 10px; font-size: 14px;"><i class="fas fa-check-circle"></i> APPROVED!</h4>
+                    <p style="color: #888; font-size: 13px; line-height: 1.6;">
+                        Your access has been verified. Keep chatting to unlock backstage surprises and exclusive content.
+                    </p>
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: rgba(255, 215, 0, 0.1); border-radius: 12px; border: 1px solid var(--gold);">
+                    <h4 style="color: var(--gold); margin-bottom: 5px; font-size: 12px;">MESSAGES SENT</h4>
+                    <p style="color: #888; font-size: 18px; font-weight: bold;">
+                        <span id="messageCount">0</span> messages
+                    </p>
+                </div>
+            </div>
+            <div class="chat-main">
+                <div class="chat-header">
+                    <div>
+                        <h2><i class="fas fa-comments"></i> Direct Admin Channel</h2>
+                        <p>Secure communication with Axl's management team</p>
+                    </div>
+                    <div class="security-code-box" id="securityCodeBox">
+                        <h4>Your Access Code</h4>
+                        <div class="security-code" id="securityCodeDisplay">AXL-XXXX</div>
+                    </div>
+                </div>
+                <div class="message-limit-warning" id="messageLimitWarning">
+                    <i class="fas fa-exclamation-triangle"></i> You have reached the message limit (10/10). Please close and reopen chat to continue.
+                </div>
+                <div class="chat-messages" id="chatMessages">
+                    <div class="message admin">
+                        <div class="message-bubble">
+                            Welcome to the Inner Circle application! I'm part of the management team. Please let us know once you're ready to complete payment, and we'll verify your access right away. Rock on! 🤘
+                        </div>
+                        <div class="message-meta">Management Team • Just now</div>
+                    </div>
+                </div>
+                <div class="chat-input-area" id="chatInputArea">
+                    <label class="image-upload-btn" title="Send Image">
+                        <i class="fas fa-image"></i>
+                        <input type="file" id="imageInput" accept="image/*" onchange="sendImage(this)">
+                    </label>
+                    <input type="text" class="chat-input" id="chatInput" placeholder="Type your message to admin...">
+                    <button class="send-btn" onclick="sendMessage()"><i class="fas fa-paper-plane"></i> Send</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="page-contact" class="page-section">
+        <div class="contact-section">
+            <h1 style="font-size: 48px; color: var(--gold); margin-bottom: 30px; text-transform: uppercase; font-family: 'Impact', sans-serif;">Get In Touch</h1>
+            <p style="color: #888; font-size: 18px; margin-bottom: 50px;">For general inquiries, please reach out to our team</p>
+            <div class="contact-grid">
+                <a class="contact-card" href="mailto:axlmanagement96@gmail.com" target="_blank" rel="noopener noreferrer">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p>axlmanagement96@gmail.com</p>
+                </a>
+                <a class="contact-card" href="https://wa.me/13826667462?text=Hello%2C%20I%27d%20like%20to%20connect%20about%20a%20booking" target="_blank" rel="noopener noreferrer">
+                    <i class="fab fa-whatsapp"></i>
+                    <h3>WhatsApp</h3>
+                    <p>+1 (382) 666-7462</p>
+                </a>
+                <div class="contact-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Management</h3>
+                    <p>Los Angeles, CA</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <div class="logo">GUNS N' <span>ROSES</span></div>
+        <p><a href="admin.html">Management Down</a></p>
+        <p>&copy; 2024 Axl Rose Official Inner Circle. All rights reserved.</p>
+        <p>Guns N' Roses and related trademarks are property of their respective owners.</p>
+    </footer>
+
+    <script>
+        let selectedTier = null;
+        let selectedTierPrice = null;
+        let currentUser = null;
+        let applicationSubmitted = false;
+        let selectedDonationAmount = 0;
+        let messageCount = 0;
+        let selectedLanguage = 'English';
+        let cartItems = [];
+        const CART_STORAGE_KEY = 'gunsnroses_cart';
+        const MESSAGE_LIMIT = Infinity;
+
+        const videoData = [
+            {
+                id: 'jungle',
+                title: 'Welcome to the Jungle',
+                description: 'Official music video for "Welcome to the Jungle" by Guns N\' Roses.',
+                poster: 'https://i.ytimg.com/vi/o1tj2zJ2Wvg/hqdefault.jpg',
+                src: 'https://www.youtube.com/embed/o1tj2zJ2Wvg'
+            },
+            {
+                id: 'sweetchild',
+                title: 'Sweet Child O\' Mine',
+                description: 'Official music video for "Sweet Child O\' Mine".',
+                poster: 'https://i.ytimg.com/vi/1w7OgIMMRc4/hqdefault.jpg',
+                src: 'https://www.youtube.com/embed/1w7OgIMMRc4'
+            },
+            {
+                id: 'november',
+                title: 'November Rain',
+                description: 'Official music video for "November Rain".',
+                poster: 'https://i.ytimg.com/vi/8SbUC-UaAxE/hqdefault.jpg',
+                src: 'https://www.youtube.com/embed/8SbUC-UaAxE'
+            },
+            {
+                id: 'paradise',
+                title: 'Paradise City',
+                description: 'Official music video for "Paradise City".',
+                poster: 'https://i.ytimg.com/vi/Rbm6GXllBiw/hqdefault.jpg',
+                src: 'https://www.youtube.com/embed/Rbm6GXllBiw'
+            },
+            {
+                id: 'dontcry',
+                title: 'Don\'t Cry',
+                description: 'Official music video for "Don\'t Cry".',
+                poster: 'https://i.ytimg.com/vi/LkZJTY6sDu4/hqdefault.jpg',
+                src: 'https://www.youtube.com/embed/LkZJTY6sDu4'
+            },
+            {
+                id: 'patience',
+                title: 'Patience',
+                description: 'Official music video for "Patience".',
+                poster: 'https://i.ytimg.com/vi/Ip1x0XJS1zY/hqdefault.jpg',
+                src: 'https://www.youtube.com/embed/Ip1x0XJS1zY'
+            }
+        ];
+
+        const newsData = [
+            {
+                tag: 'Tour',
+                title: 'New festival dates announced for summer 2026',
+                description: 'Axl Rose and Guns N\' Roses will headline several European festivals this summer with exclusive VIP packages.',
+                date: '2026-04-28'
+            },
+            {
+                tag: 'Merch',
+                title: 'Limited edition hoodie now available',
+                description: 'Grab the newest official hoodie drop with gold foil lettering and special inner circle design.',
+                date: '2026-04-24'
+            },
+            {
+                tag: 'Music',
+                title: 'Unreleased track preview featured in new documentary',
+                description: 'A rare acoustic recording has appeared in the upcoming Guns N\' Roses documentary premiering this fall.',
+                date: '2026-04-20'
+            }
+        ];
+
+        window.addEventListener('load', function() {
+            renderVideoCards();
+            renderNewsCards();
+            loadCartFromStorage();
+            const savedUser = localStorage.getItem('gunsnroses_current_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                document.getElementById('chatNav').style.display = 'inline';
+                checkApprovalStatus();
+                document.body.classList.remove('locked');
+                showPage('home');
+            } else {
+                document.body.classList.add('locked');
+                showAuthForm('signup');
+                showPage('auth');
+            }
+            const savedLanguage = localStorage.getItem('gunsnroses_language') || 'English';
+            const languageSelect = document.getElementById('languageSelect');
+            if (languageSelect) {
+                languageSelect.value = savedLanguage;
+            }
+            changeLanguage(savedLanguage);
+        });
+
+        window.addEventListener('beforeunload', function() {
+            localStorage.removeItem('gunsnroses_current_user');
+        });
+        window.addEventListener('pagehide', function() {
+            localStorage.removeItem('gunsnroses_current_user');
+        });
+
+        function showAuthForm(type) {
+            document.getElementById('loginForm').classList.toggle('active', type === 'login');
+            document.getElementById('signupForm').classList.toggle('active', type === 'signup');
+            document.getElementById('loginTab').classList.toggle('active', type === 'login');
+            document.getElementById('signupTab').classList.toggle('active', type === 'signup');
+            document.getElementById('authError').style.display = 'none';
+            const forgotSection = document.getElementById('forgotPasswordSection');
+            if (forgotSection) forgotSection.style.display = 'none';
+            const signupSection = document.getElementById('signupVerificationSection');
+            if (signupSection) signupSection.style.display = 'none';
+        }
+
+        function showPage(pageName) {
+            const protectedPages = ['membership', 'application', 'chat'];
+            if (protectedPages.includes(pageName) && !currentUser) {
+                pageName = 'auth';
+            }
+            document.querySelectorAll('.page-section').forEach(page => page.classList.remove('active'));
+            const targetPage = document.getElementById(`page-${pageName}`);
+            if (targetPage) targetPage.classList.add('active');
+            
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.dataset.page === pageName) link.classList.add('active');
+            });
+
+            const nav = document.querySelector('nav ul');
+            if (nav && nav.classList.contains('show')) nav.classList.remove('show');
+            
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (pageName === 'chat' && currentUser) loadChatData();
+        }
+
+        function handleSignup() {
+            const name = document.getElementById('signupName').value.trim();
+            const email = document.getElementById('signupEmail').value.trim().toLowerCase();
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('signupConfirmPassword').value;
+            const country = document.getElementById('signupCountry').value.trim();
+            const countryCode = document.getElementById('signupCountryCode').value.trim();
+            const phone = document.getElementById('signupPhone').value.trim();
+            const address = document.getElementById('signupAddress').value.trim();
+            const error = document.getElementById('authError');
+            error.style.color = 'var(--deep-red)';
+
+            if (!name || !email || !password || !confirmPassword || !country || !countryCode || !phone || !address) {
+                error.textContent = 'Please complete every sign-up field.';
+                error.style.display = 'block';
+                return;
+            }
+            if (password !== confirmPassword) {
+                error.textContent = 'Passwords do not match. Please try again.';
+                error.style.display = 'block';
+                return;
+            }
+
+            const accounts = JSON.parse(localStorage.getItem('gunsnroses_accounts') || '[]');
+            const existing = accounts.find(acc => acc.email === email);
+            if (existing) {
+                error.textContent = 'An account with this email already exists. Please log in.';
+                error.style.display = 'block';
+                return;
+            }
+
+            const account = { id: Date.now(), name, email, password, country, countryCode, phone, address, verified: true };
+            accounts.push(account);
+            localStorage.setItem('gunsnroses_accounts', JSON.stringify(accounts));
+
+            const visitors = JSON.parse(localStorage.getItem('gunsnroses_visitors') || '[]');
+            const visitor = {
+                id: account.id,
+                name,
+                email,
+                country,
+                countryCode,
+                phone,
+                address,
+                tier: 'roadie',
+                status: 'pending',
+                notes: 'New member signup',
+                date: new Date().toISOString().split('T')[0],
+                code: null,
+                messages: [{
+                    from: 'admin',
+                    text: `Welcome ${name}! Your Guns N' Roses account is ready. Explore meetups, tours, and exclusive content.`,
+                    time: new Date().toLocaleTimeString(),
+                    read: false,
+                    type: 'text'
+                }]
+            };
+            visitors.unshift(visitor);
+            localStorage.setItem('gunsnroses_visitors', JSON.stringify(visitors));
+            syncVisitorToServer(visitor);
+
+            currentUser = visitor;
+            localStorage.setItem('gunsnroses_current_user', JSON.stringify(currentUser));
+            document.getElementById('chatNav').style.display = 'inline';
+            document.body.classList.remove('locked');
+            showPage('home');
+            showNotification('Signup Complete', "Welcome to Guns N' Roses! Your account is ready.");
+        }
+
+        function handleLogin() {
+            const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+            const password = document.getElementById('loginPassword').value;
+            const error = document.getElementById('authError');
+            error.style.color = 'var(--deep-red)';
+
+            if (!email || !password) {
+                error.textContent = 'Please enter both email and password.';
+                error.style.display = 'block';
+                return;
+            }
+
+            const accounts = JSON.parse(localStorage.getItem('gunsnroses_accounts') || '[]');
+            const account = accounts.find(acc => acc.email === email && acc.password === password);
+
+            if (!account) {
+                error.textContent = 'Login failed. Check your credentials and try again.';
+                error.style.display = 'block';
+                return;
+            }
+
+            let visitors = JSON.parse(localStorage.getItem('gunsnroses_visitors') || '[]');
+            let visitor = visitors.find(v => v.email === email);
+            if (!visitor) {
+                visitor = {
+                    id: account.id,
+                    name: account.name,
+                    email: account.email,
+                    country: account.country || '',
+                    countryCode: account.countryCode || '',
+                    phone: account.phone || '',
+                    address: account.address || '',
+                    tier: 'roadie',
+                    status: 'pending',
+                    notes: 'Logged in member',
+                    date: new Date().toISOString().split('T')[0],
+                    code: null,
+                    messages: [{
+                        from: 'admin',
+                        text: `Welcome back ${account.name}! Continue exploring your Inner Circle access and personal meetups.`,
+                        time: new Date().toLocaleTimeString(),
+                        read: false,
+                        type: 'text'
+                    }]
+                };
+                visitors.unshift(visitor);
+                localStorage.setItem('gunsnroses_visitors', JSON.stringify(visitors));
+            } else {
+                visitor.country = account.country || visitor.country;
+                visitor.countryCode = account.countryCode || visitor.countryCode || '';
+                visitor.phone = account.phone || visitor.phone;
+                visitor.address = account.address || visitor.address;
+                visitors = visitors.map(v => v.email === email ? visitor : v);
+                localStorage.setItem('gunsnroses_visitors', JSON.stringify(visitors));
+                syncVisitorToServer(visitor);
+            }
+
+            currentUser = visitor;
+            localStorage.setItem('gunsnroses_current_user', JSON.stringify(currentUser));
+            document.getElementById('chatNav').style.display = 'inline';
+            document.body.classList.remove('locked');
+            showPage('home');
+            showNotification('Login Successful', 'Welcome back! You are now logged in.');
+        }
+
+        function togglePassword(fieldId) {
+            const field = document.getElementById(fieldId);
+            if (!field) return;
+            field.type = field.type === 'password' ? 'text' : 'password';
+        }
+
+        function toggleCountryList() {
+            const list = document.getElementById('countryList');
+            if (!list) return;
+            list.classList.toggle('show');
+        }
+
+        function selectCountry(countryName, countryCode) {
+            const picker = document.getElementById('countryPicker');
+            const countryInput = document.getElementById('signupCountry');
+            const countryCodeInput = document.getElementById('signupCountryCode');
+            if (!picker || !countryInput || !countryCodeInput) return;
+            picker.textContent = `${countryName} (${countryCode})`;
+            countryInput.value = countryName;
+            countryCodeInput.value = countryCode;
+            document.getElementById('countryList').classList.remove('show');
+        }
+
+        window.addEventListener('click', function(event) {
+            const list = document.getElementById('countryList');
+            const picker = document.getElementById('countryPicker');
+            if (!list || !picker) return;
+            if (event.target !== picker && !picker.contains(event.target) && !list.contains(event.target)) {
+                list.classList.remove('show');
+            }
+        });
+
+        function getVerificationCodes() {
+            return JSON.parse(localStorage.getItem('gunsnroses_verification_codes') || '{}');
+        }
+
+        function saveVerificationCodes(data) {
+            localStorage.setItem('gunsnroses_verification_codes', JSON.stringify(data));
+        }
+
+        function sendVerificationCode(email, purpose) {
+            const code = Math.floor(100000 + Math.random() * 900000).toString();
+            const stored = getVerificationCodes();
+            stored[`${email}_${purpose}`] = { code, created: Date.now() };
+            saveVerificationCodes(stored);
+            showNotification('Verification Code Sent', `A code was sent to ${email}. Check your inbox.`);
+
+            sendEmailCode(email, code, purpose)
+                .then(() => {
+                    console.log(`Email sent for ${email} (${purpose}).`);
+                })
+                .catch((error) => {
+                    console.error('Email send error:', error);
+                    showNotification('Email Delivery Failed', 'Cannot send the code via email right now. Use the browser console or try again.');
+                    openEmailClient(email, `Guns N' Roses ${purpose === 'signup' ? 'Signup' : 'Password Reset'} Verification Code`, `Your Guns N' Roses verification code is ${code}.\n\nEnter this code into the Guns N' Roses app to complete the ${purpose === 'signup' ? 'signup' : 'password reset'} process.`);
+                });
+
+            return code;
+        }
+
+        function sendEmailCode(email, code, purpose) {
+            return fetch('/api/send-code', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, purpose, code })
+            }).then(async (response) => {
+                if (!response.ok) {
+                    const errorText = await response.text();
+                    throw new Error(errorText || 'Email service failed');
+                }
+                return response.json();
+            });
+        }
+
+        function openEmailClient(email, subject, body) {
+            if (!email || !email.includes('@')) return;
+            const mailto = `mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            window.location.href = mailto;
+        }
+
+        async function apiGet(path) {
+            try {
+                const response = await fetch(path, { method: 'GET' });
+                if (!response.ok) return null;
+                return await response.json();
+            } catch (error) {
+                console.warn('API GET failed:', error);
+                return null;
+            }
+        }
+
+        async function apiPost(path, data) {
+            try {
+                const response = await fetch(path, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                if (!response.ok) return null;
+                return await response.json();
+            } catch (error) {
+                console.warn('API POST failed:', error);
+                return null;
+            }
+        }
+
+        async function syncVisitorToServer(visitor) {
+            if (!visitor || !visitor.id) return;
+            await apiPost('/api/visitor', visitor);
+        }
+
+        async function addVisitorMessageToServer(visitorId, message) {
+            if (!visitorId || !message) return;
+            await apiPost(`/api/visitor/${visitorId}/message`, message);
+        }
+
+        async function fetchVisitorFromServer(visitorId) {
+            if (!visitorId) return null;
+            return await apiGet(`/api/visitor/${visitorId}`);
+        }
+
+        function toggleForgotPasswordSection() {
+            const section = document.getElementById('forgotPasswordSection');
+            if (!section) return;
+            section.style.display = section.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function handleForgotPasswordReset() {
+            const email = document.getElementById('resetEmail').value.trim().toLowerCase();
+            const last4 = document.getElementById('resetLast4').value.trim();
+            const next = document.getElementById('resetNewPassword').value;
+            const confirm = document.getElementById('resetConfirmPassword').value;
+            const error = document.getElementById('authError');
+            error.style.color = 'var(--deep-red)';
+
+            if (!email || !last4 || !next || !confirm) {
+                error.textContent = 'Please fill in all password reset fields.';
+                error.style.display = 'block';
+                return;
+            }
+            if (last4.length !== 4) {
+                error.textContent = 'Enter exactly the last 4 characters of your old password.';
+                error.style.display = 'block';
+                return;
+            }
+            if (next !== confirm) {
+                error.textContent = 'New passwords do not match. Please try again.';
+                error.style.display = 'block';
+                return;
+            }
+
+            const accounts = JSON.parse(localStorage.getItem('gunsnroses_accounts') || '[]');
+            const userAccount = accounts.find(acc => acc.email === email);
+            if (!userAccount || userAccount.password.slice(-4) !== last4) {
+                error.textContent = 'Unable to verify your account. Check your email and the last 4 characters of your password.';
+                error.style.display = 'block';
+                return;
+            }
+
+            userAccount.password = next;
+            localStorage.setItem('gunsnroses_accounts', JSON.stringify(accounts));
+            if (typeof BroadcastChannel !== 'undefined') {
+                const channel = new BroadcastChannel('gunsnroses_visitors');
+                channel.postMessage({ type: 'PASSWORD_CHANGED', email: email, timestamp: new Date().toISOString() });
+            }
+
+            error.style.color = 'var(--success)';
+            error.textContent = 'Password reset successfully. Please log in with your new password.';
+            error.style.display = 'block';
+            document.getElementById('resetNewPassword').value = '';
+            document.getElementById('resetConfirmPassword').value = '';
+            showNotification('Password Reset', 'Your password has been updated. You can now log in with your new credentials.');
+        }
+
+        function requestMeetup(packageName, price) {
+            if (!currentUser) {
+                showPage('auth');
+                return;
+            }
+            const visitors = JSON.parse(localStorage.getItem('gunsnroses_visitors') || '[]');
+            const index = visitors.findIndex(v => v.id === currentUser.id);
+            if (index !== -1) {
+                if (!visitors[index].messages) visitors[index].messages = [];
+                const message = {
+                    from: 'user',
+                    text: `I would like to book the ${packageName} for ${price}. Please share availability and next steps.`,
+                    time: new Date().toLocaleTimeString(),
+                    read: false,
+                    type: 'text'
+                };
+                visitors[index].messages.push(message);
+                localStorage.setItem('gunsnroses_visitors', JSON.stringify(visitors));
+                currentUser = visitors[index];
+                localStorage.setItem('gunsnroses_current_user', JSON.stringify(currentUser));
+                addVisitorMessageToServer(currentUser.id, message);
+            }
+            showPage('chat');
+            loadChatData();
+            alert(`Your request for the ${packageName} has been sent. Our management team will contact you soon.`);
+        }
+
+        function selectTier(tier, price) {
+            selectedTier = tier; selectedTierPrice = price;
+            const tierNames = { 'roadie': 'Roadie Access', 'vip': 'VIP Backstage', 'innercircle': 'Inner Circle' };
+            document.getElementById('selectedTierName').textContent = tierNames[tier];
+            document.getElementById('selectedTierPrice').textContent = price;
+            showPage('application');
+        }
+
+        function changeTier() { showPage('membership'); }
+
+        document.getElementById('applicationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('applicantEmail').value.trim();
+            let visitors = JSON.parse(localStorage.getItem('gunsnroses_visitors') || '[]');
+            if (visitors.some(v => v.email === email)) {
+                alert('An application with this email already exists. Please check your message center or contact support.');
+                return;
+            }
+            
+            const visitorData = {
+                name: document.getElementById('applicantName').value.trim(),
+                email: email,
+                phone: document.getElementById('applicantPhone').value.trim(),
+                tier: selectedTier,
+                status: 'pending',
+                notes: document.getElementById('applicantMessage').value.trim(),
+                date: new Date().toISOString().split('T')[0],
+                code: null,
+                messages: [{
+                    from: 'admin',
+                    text: `Welcome ${document.getElementById('applicantName').value.trim()}! Thanks for applying for the ${selectedTier} tier. Please confirm when you're ready to complete payment and we'll verify your access right away. 🤘`,
+                    time: new Date().toLocaleTimeString(),
+                    read: false,
+                    type: 'text'
+                }]
+            };
+            
+            const newId = visitors.length > 0 ? Math.max(...visitors.map(v => v.id || 0)) + 1 : 1;
+            const newVisitor = { ...visitorData, id: newId };
+            visitors.unshift(newVisitor);
+            localStorage.setItem('gunsnroses_visitors', JSON.stringify(visitors));
+            syncVisitorToServer(newVisitor);
+            
+            currentUser = newVisitor;
+            localStorage.setItem('gunsnroses_current_user', JSON.stringify(currentUser));
+            localStorage.setItem('gunsnroses_payment_status', 'pending');
+            
+            document.getElementById('chatNav').style.display = 'inline';
+            
+            if (typeof BroadcastChannel !== 'undefined') {
+                const channel = new BroadcastChannel('gunsnroses_visitors');
+                channel.postMessage({ type: 'NEW_VISITOR', data: newVisitor, timestamp: new Date().toISOString() });
+            }
+            
+            applicationSubmitted = true;
+            messageCount = 0;
+            showPage('chat');
+        });
+
+        function loadChatData() {
+            if (!currentUser) return;
+            document.getElementById('chatUserName').textContent = currentUser.name;
+            document.getElementById('chatUserEmail').textContent = currentUser.email;
+            const tierNames = { roadie: 'Roadie', vip: 'VIP Backstage', innercircle: 'Inner Circle' };
+            document.getElementById('chatUserTier').textContent = `Tier: ${tierNames[currentUser.tier] || currentUser.tier}`;
+            loadMessages();
+            checkApprovalStatus();
+            updateMessageCount();
+        }
+
+        async function loadMessages() {
+            if (!currentUser) return;
+            const visitors = JSON.parse(localStorage.getItem('gunsnroses_visitors') || '[]');
+            let visitor = visitors.find(v => v.id === currentUser.id);
+            const serverVisitor = await fetchVisitorFromServer(currentUser.id);
+            if (serverVisitor) {
+                visitor = serverVisitor;
+                const updatedVisitors = visitors.filter(v => String(v.id) !== String(currentUser.id));
+                updatedVisitors.unshift(visitor);
+                localStorage.setItem('gunsnroses_visitors', JSON.stringify(updatedVisitors));
+                currentUser = visitor;
+                localStorage.setItem('gunsnroses_current_user', JSON.stringify(currentUser));
+            }
+            
+            if (visitor && visitor.messages) {
+                const chatMessages = document.getElementById('chatMessages');
+                chatMessages.innerHTML = '';
+                messageCount = 0;
+                
+                visitor.messages.forEach(msg => {
+                    if (msg.from === 'user') messageCount++;
+                    
+                    const msgDiv = document.createElement('div');
+                    msgDiv.className = `message ${msg.from}`;
+                    
+                    let bubbleContent = '';
+                    if (msg.type === 'image') {
+                        bubbleContent = `<img src="${msg.imageUrl}" class="message-image" onclick="window.open('${msg.imageUrl}', '_blank')">`;
+                    } else if (msg.type === 'donation') {
+                        bubbleContent = `
+                            <div class="donation-label"><i class="fas fa-donate"></i> NEW DONATION</div>
+                            <div style="font-size: 24px; margin: 10px 0;">${msg.text}</div>
+                            <div style="font-size: 14px; opacity: 0.8;">This user wants to make a donation. Please assist with payment completion.</div>
+                        `;
+                    } else {
+                        bubbleContent = msg.text;
+                    }
+                    
+                    const bubbleClass = msg.type === 'donation' ? 'message-bubble donation-message' : 'message-bubble';
+                    
+                    msgDiv.innerHTML = `
+                        <div class="${bubbleClass}">${bubbleContent}</div>
+                        <div class="message-meta">${msg.from === 'admin' ? 'Management Team' : 'You'} • ${msg.time}</div>
+                    `;
+                    chatMessages.appendChild(msgDiv);
+                });
+                
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                updateMessageCount();
+            }
+        }
+
+        function updateMessageCount() {
+            document.getElementById('messageCount').textContent = messageCount;
+            const warning = document.getElementById('messageLimitWarning');
+            const inputArea = document.getElementById('chatInputArea');
+            warning.classList.remove('show');
+            inputArea.style.display = 'flex';
+        }
+
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const text = input.value.trim();
+            
+            if (!text || !currentUser) return;
+            
+            const chatMessages = document.getElementById('chatMessages');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'message user';
+            msgDiv.innerHTML = `
+                <div class="message-bubble">${text}</div>
+                <div class="message-meta">You • ${new Date().toLocaleTimeString()}</div>
+            `;
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            
+            const visitors = JSON.parse(localStorage.getItem('gunsnroses_visitors') || '[]');
+            const index = visitors.findIndex(v => v.id === currentUser.id);
+            
+            if (index !== -1) {
+                if (!visitors[index].messages) visitors[index].messages = [];
+                const message = { 
+                    from: 'user', 
+                    text: text, 
+                    time: new Date().toLocaleTimeString(), 
+                    read: false,
+                    type: 'text'
+                };
+                visitors[index].messages.push(message);
+                localStorage.setItem('gunsnroses_visitors', JSON.stringify(visitors));
+                messageCount++;
+                updateMessageCount();
+                
+                if (typeof BroadcastChannel !== 'undefined') {
+                    const channel = new BroadcastChannel('gunsnroses_visitors');
+                    channel.postMessage({ type: 'NEW_MESSAGE', visitorId: currentUser.id, text: text });
+                }
+                addVisitorMessageToServer(currentUser.id, message);
+            }
+            input.value = '';
+            setTimeout(() => appendChatBotResponse(text), 1200);
+        }
+
+        function getChatBotReply(userText) {
+            const text = (userText || '').toLowerCase();
+            if (text.includes('tour')) return 'The tour team is checking the latest dates for you. Thanks for reaching out!';
+            if (text.includes('merch') || text.includes('hoodie') || text.includes('poster')) return 'Our merch squad is ready. We will get you the best gear and pricing details soon.';
+            if (text.includes('password') || text.includes('login')) return 'Need help signing in? We can assist with account access and password recovery right away.';
+            if (text.includes('hello') || text.includes('hi') || text.includes('hey')) return 'Hey there! What can we help you with today?';
+            const replies = [
+                'Thanks for your message! Our team is reviewing it and will respond shortly.',
+                'Rock on! Someone will be with you shortly to help with your request.',
+                'We got this. Your message is being passed to the support crew now.',
+                'AxlBot says: Keep the rock alive. Hang tight while we handle your request.'
+            ];
+            return replies[Math.floor(Math.random() * replies.length)];
+        }
+
+        function appendChatBotResponse(userText) {
+            const chatMessages = document.getElementById('chatMessages');
+            if (!chatMessages || !currentUser) return;
+            const response = getChatBotReply(userText);
+            const botDiv = document.createElement('div');
+            botDiv.className = 'message admin';
+            botDiv.innerHTML = `
+                <div class="message-bubble">${response}</div>
+                <div class="message-meta">AxlBot • ${new Date().toLocaleTimeString()}</div>
+            `;
+            chatMessages.appendChild(botDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+            const visitors = JSON.parse(localStorage.getItem('gunsnroses_visitors') || '[]');
+            const index = visitors.findIndex(v => v.id === currentUser.id);
+            if (index !== -1) {
+                if (!visitors[index].messages) visitors[index].messages = [];
+                const message = {
+                    from: 'admin',
+                    text: response,
+                    time: new Date().toLocaleTimeString(),
+                    read: false,
+                    type: 'text'
+                };
+                visitors[index].messages.push(message);
+                localStorage.setItem('gunsnroses_visitors', JSON.stringify(visitors));
+                addVisitorMessageToServer(currentUser.id, message);
+            }
+        }
+
+        function sendImage(input) {
+            if (!input.files || !input.files[0] || !currentUser) return;
+            
+            const file = input.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const imageUrl = e.target.result;
+                const chatMessages = document.getElementById('chatMessages');
+                
+                const msgDiv = document.createElement('div');
+                msgDiv.className = 'message user';
+                msgDiv.innerHTML = `
+                    <div class="message-bubble">
+                        <img src="${imageUrl}" class="message-image" onclick="window.open('${imageUrl}', '_blank')">
+                    </div>
+                    <div class="message-meta">You • ${new Date().toLocaleTimeString()}</div>
+                `;
+                chatMessages.appendChild(msgDiv);
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+                
+                const visitors = JSON.parse(localStorage.getItem('gunsnroses_visitors') || '[]');
+                const index = visitors.findIndex(v => v.id === currentUser.id);
+                
+                if (index !== -1) {
+                    if (!visitors[index].messages) visitors[index].messages = [];
+                    const message = { 
+                        from: 'user', 
+                        text: 'Sent an image',
+                        imageUrl: imageUrl,
+                        time: new Date().toLocaleTimeString(), 
+                        read: false,
+                        type: 'image'
+                    };
+                    visitors[index].messages.push(message);
+                    localStorage.setItem('gunsnroses_visitors', JSON.stringify(visitors));
+                    messageCount++;
+                    updateMessageCount();
+                    
+                    if (typeof BroadcastChannel !== 'undefined') {
+                        const channel = new BroadcastChannel('gunsnroses_visitors');
+                        channel.postMessage({ type: 'NEW_MESSAGE', visitorId: currentUser.id, text: 'Sent an image' });
+                    }
+                    addVisitorMessageToServer(currentUser.id, message);
+                }
+            };
+            
+            reader.readAsDataURL(file);
+            input.value = '';
+        }
+
+        document.getElementById('chatInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') sendMessage();
+        });
+
+        function checkApprovalStatus() {
+            if (!currentUser) return;
+            const visitors = JSON.parse(localStorage.getItem('gunsnroses_visitors') || '[]');
+            const updated = visitors.find(v => v.id === currentUser.id);
+            
+            if (updated) {
+                const statusBadge = document.getElementById('chatUserStatus');
+                if (updated.status === 'active') {
+                    statusBadge.textContent = 'Approved';
+                    statusBadge.className = 'status-badge status-approved';
+                    document.getElementById('approvedInfo').style.display = 'block';
+                    
+                    if (updated.code) {
+                        document.getElementById('securityCodeBox').classList.add('active');
+                        document.getElementById('securityCodeDisplay').textContent = updated.code;
+                    }
+                } else {
+                    statusBadge.textContent = 'Pending';
+                    statusBadge.className = 'status-badge status-pending';
+                }
+                currentUser = updated;
+                localStorage.setItem('gunsnroses_current_user', JSON.stringify(currentUser));
+            }
+        }
+
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'gunsnroses_visitors') {
+                checkApprovalStatus();
+                loadMessages();
+            }
+        });
+
+        setInterval(checkApprovalStatus, 3000);
+
+        // Video player simulation
+        function getEmbedUrl(src) {
+            return src.includes('?') ? `${src}&autoplay=1&rel=0` : `${src}?autoplay=1&rel=0`;
+        }
+
+        function playVideo(videoId) {
+            const video = videoData.find(item => item.id === videoId);
+            if (!video) return;
+
+            const modal = document.getElementById('videoModal');
+            const videoPlayer = document.getElementById('videoPlayer');
+            const titleEl = document.getElementById('videoModalTitle');
+            const descriptionEl = document.getElementById('videoModalDescription');
+
+            if (!modal || !videoPlayer || !titleEl || !descriptionEl) return;
+
+            titleEl.textContent = video.title;
+            descriptionEl.textContent = video.description;
+            videoPlayer.src = getEmbedUrl(video.src);
+            modal.classList.add('active');
+        }
+
+        function closeVideoModal() {
+            const modal = document.getElementById('videoModal');
+            const videoPlayer = document.getElementById('videoPlayer');
+            if (!modal || !videoPlayer) return;
+            videoPlayer.src = '';
+            modal.classList.remove('active');
+        }
+
+        function renderVideoCards() {
+            const videosGrid = document.getElementById('videosGrid');
+            if (!videosGrid) return;
+            videosGrid.innerHTML = '';
+            videoData.forEach(video => {
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                card.onclick = () => playVideo(video.id);
+                card.innerHTML = `
+                    <div class="video-thumbnail" style="background-image: url('${video.poster}'); background-size: cover; background-position: center;">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <div class="video-info">
+                        <h3>${video.title}</h3>
+                        <p>${video.description}</p>
+                    </div>
+                `;
+                videosGrid.appendChild(card);
+            });
+        }
+
+        function renderNewsCards() {
+            const newsGrid = document.getElementById('newsGrid');
+            if (!newsGrid) return;
+            newsGrid.innerHTML = '';
+            const sortedNews = [...newsData].sort((a, b) => new Date(b.date) - new Date(a.date));
+            sortedNews.forEach(news => {
+                const card = document.createElement('div');
+                card.className = 'news-card';
+                card.innerHTML = `
+                    <span class="news-tag">${news.tag}</span>
+                    <h3>${news.title}</h3>
+                    <p>${news.description}</p>
+                    <time>${new Date(news.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
+                `;
+                newsGrid.appendChild(card);
+            });
+        }
+
+        window.addEventListener('click', function(event) {
+            const modal = document.getElementById('videoModal');
+            if (!modal || !modal.classList.contains('active')) return;
+            if (event.target === modal) closeVideoModal();
+        });
+
+        window.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') closeVideoModal();
+        });
+
+        // Ticket booking simulation
+        function bookTicket(show) {
+            alert(`🎫 Booking Ticket for: ${show}\n\nYou will be redirected to the secure checkout page.`);
+        }
+
+        // Donation functions
+        function selectAmount(btn, amount) {
+            document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            selectedDonationAmount = amount;
+            document.getElementById('customAmount').value = '';
+        }
+
+        function clearSelection() {
+            document.querySelectorAll('.amount-btn').forEach(b => b.classList.remove('selected'));
+            selectedDonationAmount = parseFloat(document.getElementById('customAmount').value) || 0;
+        }
+
+        function showDonationConfirmation() {
+            const amount = selectedDonationAmount || parseFloat(document.getElementById('customAmount').value) || 0;
+            if (amount <= 0) {
+                alert('Please select or enter a donation amount.');
+                return;
+            }
+            
+            document.getElementById('modalDonationAmount').textContent = `$${amount}`;
+            document.getElementById('donationModal').classList.add('active');
+        }
+
+        function confirmDonationYes() {
+            const amount = selectedDonationAmount || parseFloat(document.getElementById('customAmount').value) || 0;
+            document.getElementById('donationModal').classList.remove('active');
+            
+            // Create a donation user if not exists
+            if (!currentUser) {
+                const donationUser = {
+                    id: Date.now(),
+                    name: 'Donor',
+                    email: `donor_${Date.now()}@gunsnroses.com`,
+                    phone: 'N/A',
+                    tier: 'donor',
+                    status: 'pending',
+                    notes: 'Donation inquiry',
+                    date: new Date().toISOString().split('T')[0],
+                    code: null,
+                    messages: [{
+                        from: 'admin',
+                        text: 'Thank you for your interest in supporting the legacy! How can we assist you with your donation?',
+                        time: new Date().toLocaleTimeString(),
+                        read: false,
+                        type: 'text'
+                    }]
+                };
+                
+                let visitors = JSON.parse(localStorage.getItem('gunsnroses_visitors') || '[]');
+                visitors.unshift(donationUser);
+                localStorage.setItem('gunsnroses_visitors', JSON.stringify(visitors));
+                currentUser = donationUser;
+                localStorage.setItem('gunsnroses_current_user', JSON.stringify(currentUser));
+                document.getElementById('chatNav').style.display = 'inline';
+            }
+            
+            // Add donation message
+            let visitors = JSON.parse(localStorage.getItem('gunsnroses_visitors') || '[]');
+            const index = visitors.findIndex(v => v.id === currentUser.id);
+            
+            if (index !== -1) {
+                if (!visitors[index].messages) visitors[index].messages = [];
+                visitors[index].messages.push({
+                    from: 'user',
+                    text: `💰 DONATION REQUEST: $${amount}\n\nI would like to make a donation of $${amount} to support Axl Rose's legacy. Please guide me through the payment process.`,
+                    time: new Date().toLocaleTimeString(),
+                    read: false,
+                    type: 'donation'
+                });
+                localStorage.setItem('gunsnroses_visitors', JSON.stringify(visitors));
+                
+                if (typeof BroadcastChannel !== 'undefined') {
+                    const channel = new BroadcastChannel('gunsnroses_visitors');
+                    channel.postMessage({ type: 'NEW_MESSAGE', visitorId: currentUser.id, text: `Donation request: $${amount}` });
+                }
+            }
+            
+            messageCount = 0; // Reset count for donation flow
+            showPage('chat');
+            loadChatData();
+            
+            // Show notification
+            showNotification('Donation Request Sent', 'Management has been notified of your donation request. They will contact you shortly.');
+        }
+
+        function subscribeNewsletter(inputId, messageId) {
+            const emailInput = document.getElementById(inputId);
+            const messageBox = document.getElementById(messageId);
+            if (!emailInput || !messageBox) return;
+            const email = emailInput.value.trim().toLowerCase();
+            const valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            messageBox.style.color = '#f5f5f5';
+            if (!valid) {
+                messageBox.textContent = 'Please enter a valid email address.';
+                return;
+            }
+            const subscribers = JSON.parse(localStorage.getItem('gunsnroses_newsletter') || '[]');
+            if (subscribers.includes(email)) {
+                messageBox.textContent = 'You are already subscribed to the newsletter.';
+                return;
+            }
+            subscribers.push(email);
+            localStorage.setItem('gunsnroses_newsletter', JSON.stringify(subscribers));
+            messageBox.style.color = 'var(--success)';
+            messageBox.textContent = 'Subscribed! You will receive the latest Axl Rose news.';
+            emailInput.value = '';
+            showNotification('Newsletter Subscribed', 'You are now on the official Guns N\' Roses mailing list.');
+        }
+
+        function changeLanguage(language) {
+            selectedLanguage = language;
+            localStorage.setItem('gunsnroses_language', language);
+            showNotification('Language Updated', `Language switched to ${language}.`);
+        }
+
+        function buyMerch(product, price) {
+            const numericPrice = parseFloat(price.replace(/[^0-9.-]+/g, '')) || 0;
+            addToCart(product, numericPrice, price);
+            notifyAdminCart(product, price);
+            showNotification('Added to Cart', `${product} (${price}) has been added to your cart.`);
+        }
+
+        function addToCart(product, amount, displayPrice) {
+            const existing = cartItems.find(item => item.product === product && item.price === displayPrice);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cartItems.push({ product, price: displayPrice, amount, quantity: 1 });
+            }
+            saveCartItems();
+            updateCartCount();
+        }
+
+        function saveCartItems() {
+            localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartItems));
+        }
+
+        function loadCartFromStorage() {
+            cartItems = JSON.parse(localStorage.getItem(CART_STORAGE_KEY) || '[]');
+            updateCartCount();
+        }
+
+        function updateCartCount() {
+            const countEl = document.getElementById('cartCount');
+            if (!countEl) return;
+            const totalCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+            countEl.textContent = totalCount;
+        }
+
+        function toggleCartPanel() {
+            const panel = document.getElementById('cartPanel');
+            if (!panel) return;
+            panel.classList.toggle('active');
+            renderCartList();
+        }
+
+        function renderCartList() {
+            const list = document.getElementById('cartItemsList');
+            const totalItems = document.getElementById('cartTotalItems');
+            const subtotal = document.getElementById('cartSubtotal');
+            if (!list || !totalItems || !subtotal) return;
+            list.innerHTML = '';
+            if (cartItems.length === 0) {
+                list.innerHTML = '<div class="cart-empty">Your cart is empty. Add merchandise to see it here.</div>';
+            } else {
+                cartItems.forEach((item, index) => {
+                    const itemEl = document.createElement('div');
+                    itemEl.className = 'cart-item';
+                    itemEl.innerHTML = `
+                        <h4>${item.product}</h4>
+                        <p class="cart-item-price">${item.price} each</p>
+                        <div class="cart-item-meta">
+                            <span class="cart-item-qty">Qty: ${item.quantity}</span>
+                            <button class="remove-item" onclick="removeCartItem(${index})">Remove</button>
+                        </div>
+                    `;
+                    list.appendChild(itemEl);
+                });
+            }
+            const count = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+            const total = cartItems.reduce((sum, item) => sum + item.quantity * item.amount, 0);
+            totalItems.textContent = count;
+            subtotal.textContent = `$${total.toFixed(2)}`;
+        }
+
+        function removeCartItem(index) {
+            if (index < 0 || index >= cartItems.length) return;
+            cartItems.splice(index, 1);
+            saveCartItems();
+            renderCartList();
+            updateCartCount();
+        }
+
+        function clearCart() {
+            cartItems = [];
+            saveCartItems();
+            renderCartList();
+            updateCartCount();
+        }
+
+        function checkoutCart() {
+            if (cartItems.length === 0) {
+                alert('Your cart is empty. Add something before checking out.');
+                return;
+            }
+            const items = cartItems.map(item => `${item.quantity}× ${item.product}`).join(', ');
+            showNotification('Checkout Ready', 'Your order is ready. Chat with admin to complete the purchase.');
+            openSupportChat();
+            if (currentUser) {
+                const visitors = JSON.parse(localStorage.getItem('gunsnroses_visitors') || '[]');
+                const index = visitors.findIndex(v => v.id === currentUser.id);
+                if (index !== -1) {
+                    visitors[index].messages = visitors[index].messages || [];
+                    visitors[index].messages.push({
+                        from: 'user',
+                        text: `Checkout request: ${items}. Please confirm my order and payment details.`,
+                        time: new Date().toLocaleTimeString(),
+                        read: false,
+                        type: 'cart'
+                    });
+                    localStorage.setItem('gunsnroses_visitors', JSON.stringify(visitors));
+                }
+            }
+        }
+
+        function notifyAdminCart(product, price) {
+            if (!currentUser) {
+                currentUser = {
+                    id: Date.now(),
+                    name: 'Cart Visitor',
+                    email: `visitor_${Date.now()}@gunsnroses.com`,
+                    phone: 'N/A',
+                    tier: 'visitor',
+                    status: 'pending',
+                    notes: 'Cart notification',
+                    date: new Date().toISOString().split('T')[0],
+                    code: null,
+                    messages: []
+                };
+                const visitors = JSON.parse(localStorage.getItem('gunsnroses_visitors') || '[]');
+                visitors.unshift(currentUser);
+                localStorage.setItem('gunsnroses_visitors', JSON.stringify(visitors));
+                localStorage.setItem('gunsnroses_current_user', JSON.stringify(currentUser));
+                document.getElementById('chatNav').style.display = 'inline';
+                document.body.classList.remove('locked');
+            }
+            const visitors = JSON.parse(localStorage.getItem('gunsnroses_visitors') || '[]');
+            const index = visitors.findIndex(v => v.id === currentUser.id);
+            if (index !== -1) {
+                visitors[index].messages = visitors[index].messages || [];
+                visitors[index].messages.push({
+                    from: 'user',
+                    text: `Added to cart: ${product} (${price}). Please notify admin to review this order.`,
+                    time: new Date().toLocaleTimeString(),
+                    read: false,
+                    type: 'cart'
+                });
+                localStorage.setItem('gunsnroses_visitors', JSON.stringify(visitors));
+                currentUser = visitors[index];
+                localStorage.setItem('gunsnroses_current_user', JSON.stringify(currentUser));
+            }
+        }
+
+        function openSupportChat() {
+            if (!currentUser) {
+                const supportUser = {
+                    id: Date.now(),
+                    name: 'Support Guest',
+                    email: `support_${Date.now()}@gunsnroses.com`,
+                    phone: 'N/A',
+                    tier: 'support',
+                    status: 'pending',
+                    notes: 'Support request',
+                    date: new Date().toISOString().split('T')[0],
+                    code: null,
+                    messages: [{
+                        from: 'admin',
+                        text: 'Welcome to support! How can we help you today?',
+                        time: new Date().toLocaleTimeString(),
+                        read: false,
+                        type: 'text'
+                    }]
+                };
+                const visitors = JSON.parse(localStorage.getItem('gunsnroses_visitors') || '[]');
+                visitors.unshift(supportUser);
+                localStorage.setItem('gunsnroses_visitors', JSON.stringify(visitors));
+                currentUser = supportUser;
+                localStorage.setItem('gunsnroses_current_user', JSON.stringify(currentUser));
+                document.getElementById('chatNav').style.display = 'inline';
+            }
+            showPage('chat');
+            loadChatData();
+        }
+
+        function confirmDonationNo() {
+            document.getElementById('donationModal').classList.remove('active');
+            const amount = selectedDonationAmount || parseFloat(document.getElementById('customAmount').value) || 0;
+            alert(`❤️ Thank you for considering a donation of $${amount}!\n\nYou can always come back later to complete your donation. Rock on! 🤘`);
+        }
+
+        function showNotification(title, text) {
+            // Create notification element if not exists
+            let notif = document.getElementById('tempNotification');
+            if (!notif) {
+                notif = document.createElement('div');
+                notif.id = 'tempNotification';
+                notif.style.cssText = `
+                    position: fixed; top: 120px; right: 40px;
+                    background: linear-gradient(135deg, var(--dark-gray), rgba(61,40,23,0.3));
+                    border: 2px solid var(--gold); border-radius: 20px; padding: 30px;
+                    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); z-index: 10002;
+                    max-width: 450px; transform: translateX(600px); transition: transform 0.4s;
+                `;
+                document.body.appendChild(notif);
+            }
+            
+            notif.innerHTML = `
+                <div style="color: var(--gold); font-weight: bold; margin-bottom: 10px; font-size: 18px; text-transform: uppercase;">${title}</div>
+                <div style="color: #aaa; font-size: 14px;">${text}</div>
+            `;
+            
+            setTimeout(() => notif.style.transform = 'translateX(0)', 100);
+            setTimeout(() => notif.style.transform = 'translateX(600px)', 4000);
+        }
+
+        function toggleMenu() {
+            const nav = document.querySelector('nav ul');
+            nav.classList.toggle('show');
+        }
+    </script>
+</body>
+</html>
