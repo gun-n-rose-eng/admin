@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guns N' Roses | Axl Rose Management Down</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --blood-red: #8B0000;
+            --deep-red: #DC143C;
+            --rose-gold: #B76E79;
+            --gold: #FFD700;
+            --black: #0a0a0a;
+            --dark-gray: #1a1a1a;
+            --light-gray: #2a2a2a;
+            --success: #00ff88;
+            --warning: #ffa500;
+            --info: #00d4ff;
+            --white: #ffffff;
+        }
+        html, body {
+            height: 100%;
+            overflow: auto;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--black); color: var(--white);
+        }
+        .bg-animation {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(139, 0, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(220, 20, 60, 0.08) 0%, transparent 50%);
+        }
+
+        /* Auth Screen */
+        .auth-screen {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0505 100%);
+            z-index: 99999; display: flex; align-items: center; justify-content: center;
+        }
+        .auth-box {
+            background: linear-gradient(135deg, rgba(26,26,26,0.9), rgba(61,40,23,0.2));
+            border: 3px solid var(--blood-red); border-radius: 20px; padding: 60px;
+            width: 100%; max-width: 450px; text-align: center;
+            box-shadow: 0 20px 60px rgba(139, 0, 0, 0.4);
+        }
+        .auth-box h1 { color: var(--gold); margin-bottom: 10px; font-size: 32px; text-transform: uppercase; letter-spacing: 5px; font-family: 'Impact', sans-serif; text-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+        .auth-box p { color: var(--deep-red); margin-bottom: 40px; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; }
+        .auth-input {
+            width: 100%; padding: 18px; background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(139, 0, 0, 0.3); color: var(--white);
+            border-radius: 10px; margin-bottom: 20px; font-size: 16px;
+        }
+        .auth-input:focus { outline: none; border-color: var(--blood-red); }
+        .password-container { position: relative; margin-bottom: 20px; }
+        .password-toggle { position: absolute; right: 15px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #888; cursor: pointer; font-size: 18px; }
+        .password-toggle:hover { color: var(--gold); }
+        .auth-btn {
+            width: 100%; padding: 20px;
+            background: linear-gradient(45deg, var(--blood-red), var(--deep-red));
+            border: 2px solid var(--gold); color: var(--white); font-size: 16px;
+            font-weight: bold; text-transform: uppercase; letter-spacing: 3px;
+            border-radius: 10px; cursor: pointer; transition: all 0.3s;
+        }
+        .auth-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(139, 0, 0, 0.5); }
+        .error-msg { color: var(--deep-red); font-size: 14px; margin-top: 15px; display: none; }
+
+        /* Main Layout - FULL WIDTH */
+        .admin-container { display: none; min-height: 100vh; overflow: auto; }
+        .admin-header {
+            position: fixed; top: 0; left: 0; right: 0; padding: 20px 40px;
+            background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(20px);
+            border-bottom: 3px solid var(--blood-red); display: flex;
+            justify-content: space-between; align-items: center; z-index: 1000;
+            box-shadow: 0 5px 30px rgba(139, 0, 0, 0.3);
+        }
+        .admin-brand { display: flex; align-items: center; gap: 20px; }
+        .admin-brand h2 { color: var(--gold); font-size: 28px; letter-spacing: 3px; text-transform: uppercase; font-family: 'Impact', sans-serif; text-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+        .admin-badge { background: var(--blood-red); color: var(--gold); padding: 8px 20px; border-radius: 20px; font-size: 11px; text-transform: uppercase; font-weight: bold; letter-spacing: 1px; }
+        .live-indicator { display: flex; align-items: center; gap: 10px; background: rgba(0, 255, 136, 0.1); border: 1px solid var(--success); padding: 10px 20px; border-radius: 25px; font-size: 12px; color: var(--success); margin-right: 20px; }
+        .live-dot { width: 10px; height: 10px; background: var(--success); border-radius: 50%; animation: blink 1s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+        .admin-actions { display: flex; align-items: center; gap: 25px; }
+        .admin-user { display: flex; align-items: center; gap: 15px; padding: 10px 25px; background: rgba(139, 0, 0, 0.1); border: 1px solid rgba(139, 0, 0, 0.3); border-radius: 30px; }
+        .admin-avatar { width: 45px; height: 45px; border-radius: 50%; background: linear-gradient(45deg, var(--blood-red), var(--gold)); display: flex; align-items: center; justify-content: center; color: var(--black); font-weight: bold; font-size: 20px; }
+        .logout-btn { padding: 12px 30px; background: transparent; border: 2px solid var(--deep-red); color: var(--deep-red); border-radius: 25px; cursor: pointer; font-size: 14px; font-weight: 600; text-transform: uppercase; transition: all 0.3s; }
+        .logout-btn:hover { background: var(--deep-red); color: var(--white); }
+
+        .mobile-nav { display: none; width: 100%; margin-top: 16px; }
+        .mobile-nav select {
+            width: 100%; padding: 16px 18px; border-radius: 18px;
+            background: rgba(0, 0, 0, 0.35); border: 2px solid rgba(139, 0, 0, 0.3);
+            color: var(--white); font-size: 15px; appearance: none;
+        }
+        .mobile-nav label { display: block; margin-bottom: 8px; color: #aaa; font-size: 12px; letter-spacing: 1px; text-transform: uppercase; }
+
+        /* Body Layout - Full Width */
+        .admin-body { display: flex; padding-top: 100px; min-height: 100vh; overflow: auto; }
+        .admin-sidebar {
+            background: var(--dark-gray); border-right: 2px solid rgba(139, 0, 0, 0.2);
+            padding: 40px 20px; position: fixed; height: calc(100vh - 100px);
+            width: 280px; overflow-y: auto; z-index: 100;
+        }
+        .sidebar-section { margin-bottom: 40px; }
+        .sidebar-title { color: var(--deep-red); font-size: 12px; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px; padding-left: 15px; font-weight: 600; }
+        .sidebar-menu { list-style: none; }
+        .sidebar-menu li { margin-bottom: 10px; }
+        .sidebar-menu a {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 18px 22px; color: #888; text-decoration: none;
+            border-radius: 12px; transition: all 0.3s; cursor: pointer;
+            font-size: 15px; border: 1px solid transparent; font-weight: 500;
+        }
+        .sidebar-menu a:hover, .sidebar-menu a.active {
+            background: rgba(139, 0, 0, 0.15); color: var(--gold);
+            border-color: rgba(139, 0, 0, 0.4); transform: translateX(5px);
+        }
+        .menu-badge { background: var(--deep-red); color: var(--white); padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: bold; }
+
+        /* Content Area - MAXIMUM Width */
+        .admin-content {
+            padding: 40px; margin-left: 280px; width: calc(100% - 280px);
+            min-height: calc(100vh - 100px); overflow-y: auto; overflow-x: auto;
+        }
+        .page-section {
+            min-height: calc(100vh - 160px);
+            padding-bottom: 40px;
+            overflow-y: auto;
+            overflow-x: auto;
+        }
+        #page-members, #page-messages {
+            overflow-x: auto;
+        }
+        #pendingContainer {
+            max-height: calc(100vh - 260px);
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+        .chat-interface {
+            display: grid; grid-template-columns: 360px minmax(760px, 1fr); gap: 0;
+            width: 1200px; min-width: 1200px; height: calc(100vh - 180px);
+            background: linear-gradient(135deg, rgba(26,26,26,0.95), rgba(61,40,23,0.15));
+            border: 2px solid rgba(139, 0, 0, 0.3); border-radius: 24px; overflow: hidden;
+        }
+        .chat-main-area { display: flex; flex-direction: column; background: rgba(0, 0, 0, 0.22); height: 100%; min-width: 760px; }
+        .chat-messages-area {
+            flex: 1; overflow-y: auto; padding: 35px;
+            background: rgba(0, 0, 0, 0.32); min-height: 420px; max-height: calc(100vh - 340px);
+            display: flex; flex-direction: column; gap: 18px;
+            scrollbar-width: thin; scrollbar-color: var(--blood-red) var(--dark-gray);
+        }
+        .chat-input-bar {
+            display: flex; gap: 20px; padding: 25px 35px;
+            background: rgba(0, 0, 0, 0.5); border-top: 2px solid rgba(139, 0, 0, 0.3);
+            align-items: center; position: sticky; bottom: 0; z-index: 10;
+        }
+        .page-title {
+            font-size: 42px; margin-bottom: 40px; color: var(--gold);
+            text-transform: uppercase; letter-spacing: 5px; font-family: 'Impact', sans-serif;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+            border-bottom: 2px solid rgba(139, 0, 0, 0.3); padding-bottom: 20px;
+        }
+
+        /* Stats - Full Width */
+        .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; margin-bottom: 50px; }
+        .stat-card {
+            background: linear-gradient(135deg, rgba(26,26,26,0.9), rgba(61,40,23,0.2));
+            border: 2px solid rgba(139, 0, 0, 0.3); border-radius: 20px; padding: 35px;
+            position: relative; overflow: hidden; transition: all 0.3s;
+        }
+        .stat-card:hover { transform: translateY(-5px); border-color: var(--blood-red); box-shadow: 0 15px 40px rgba(139, 0, 0, 0.3); }
+        .stat-card::before { content: ''; position: absolute; top: 0; left: 0; width: 5px; height: 100%; background: linear-gradient(to bottom, var(--blood-red), var(--gold)); }
+        .stat-value { font-size: 48px; font-weight: bold; color: var(--gold); margin-bottom: 10px; text-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+        .stat-label { color: #888; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* Content Cards */
+        .content-card {
+            background: linear-gradient(135deg, rgba(26,26,26,0.9), rgba(61,40,23,0.1));
+            border: 2px solid rgba(139, 0, 0, 0.2); border-radius: 24px;
+            margin-bottom: 40px; overflow: hidden; width: 100%;
+        }
+        .card-header {
+            padding: 30px 40px; border-bottom: 2px solid rgba(139, 0, 0, 0.2);
+            display: flex; justify-content: space-between; align-items: center;
+            background: rgba(0, 0, 0, 0.3);
+        }
+        .card-header h3 { color: var(--gold); font-size: 24px; display: flex; align-items: center; gap: 15px; text-transform: uppercase; letter-spacing: 2px; }
+        .btn {
+            padding: 15px 30px; border: none; border-radius: 12px; cursor: pointer;
+            font-size: 14px; font-weight: 600; transition: all 0.3s;
+            display: inline-flex; align-items: center; gap: 10px;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .btn-gold { background: linear-gradient(45deg, var(--gold), var(--rose-gold)); color: var(--black); }
+        .btn-success { background: var(--success); color: var(--black); }
+        .btn-danger { background: var(--deep-red); color: var(--white); }
+        .btn-info { background: var(--info); color: var(--black); }
+
+        /* Data Table - Full Width */
+        .data-table-wrapper {
+            overflow-x: auto;
+            width: 100%;
+            padding-bottom: 10px;
+        }
+        .data-table-wrapper::-webkit-scrollbar {
+            height: 10px;
+        }
+        .data-table-wrapper::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+        }
+        .data-table-wrapper::-webkit-scrollbar-thumb {
+            background: rgba(255,215,0,0.35);
+            border-radius: 999px;
+        }
+        .data-table { width: 100%; min-width: 980px; border-collapse: collapse; }
+        .data-table th {
+            text-align: left; padding: 20px 25px; color: #888; font-size: 13px;
+            text-transform: uppercase; letter-spacing: 2px; background: rgba(0, 0, 0, 0.4);
+            border-bottom: 2px solid rgba(139, 0, 0, 0.2); font-weight: 600;
+        }
+        .data-table td { padding: 20px 25px; border-bottom: 1px solid rgba(139, 0, 0, 0.1); font-size: 15px; }
+        .data-table tr:hover { background: rgba(139, 0, 0, 0.08); }
+        .visitor-cell { display: flex; align-items: center; gap: 20px; }
+        .visitor-avatar {
+            width: 55px; height: 55px; border-radius: 50%;
+            background: linear-gradient(45deg, var(--blood-red), var(--gold));
+            display: flex; align-items: center; justify-content: center;
+            color: var(--black); font-weight: bold; font-size: 22px;
+        }
+        .badge {
+            display: inline-flex; align-items: center; padding: 8px 18px;
+            border-radius: 25px; font-size: 12px; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .badge-pending { background: rgba(255, 165, 0, 0.15); color: var(--warning); border: 1px solid rgba(255, 165, 0, 0.3); }
+        .badge-active { background: rgba(0, 255, 136, 0.15); color: var(--success); border: 1px solid rgba(0, 255, 136, 0.3); }
+        .badge-roadie { background: rgba(192, 192, 192, 0.15); color: #c0c0c0; border: 1px solid rgba(192, 192, 192, 0.3); }
+        .badge-vip { background: rgba(255, 215, 0, 0.15); color: var(--gold); border: 1px solid rgba(255, 215, 0, 0.3); }
+        .badge-innercircle { background: rgba(220, 20, 60, 0.15); color: var(--deep-red); border: 1px solid rgba(220, 20, 60, 0.3); }
+        .action-group { display: flex; gap: 10px; }
+        .action-btn {
+            padding: 10px 18px; border-radius: 10px; border: none;
+            cursor: pointer; font-size: 12px; font-weight: 600;
+            transition: all 0.3s; text-transform: uppercase;
+        }
+        .action-view { background: rgba(255, 215, 0, 0.2); color: var(--gold); }
+        .action-message { background: rgba(0, 212, 255, 0.2); color: var(--info); }
+        .action-approve { background: rgba(0, 255, 136, 0.2); color: var(--success); }
+        .action-reject { background: rgba(220, 20, 60, 0.2); color: var(--deep-red); }
+
+        /* Member Detail Modal */
+        .modal-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95); z-index: 10000;
+            align-items: center; justify-content: center; padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-content {
+            background: linear-gradient(135deg, var(--dark-gray), rgba(61,40,23,0.3));
+            border: 3px solid var(--blood-red); border-radius: 30px; padding: 50px;
+            max-width: 900px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative;
+        }
+        .modal-close { position: absolute; top: 25px; right: 25px; background: none; border: none; color: #888; font-size: 28px; cursor: pointer; }
+        .modal-close:hover { color: var(--gold); }
+        .member-detail-header { display: flex; align-items: center; gap: 40px; margin-bottom: 50px; padding-bottom: 40px; border-bottom: 3px solid rgba(139, 0, 0, 0.3); }
+        .member-detail-avatar { width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(45deg, var(--blood-red), var(--gold)); display: flex; align-items: center; justify-content: center; font-size: 56px; color: var(--black); font-weight: bold; }
+        .member-detail-info h2 { color: var(--gold); font-size: 42px; margin-bottom: 15px; }
+        .detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin-bottom: 40px; }
+        .detail-item { background: rgba(0, 0, 0, 0.4); padding: 25px; border-radius: 15px; border: 1px solid rgba(139, 0, 0, 0.3); }
+        .detail-item label { display: block; color: #888; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+        .detail-item value { display: block; color: var(--white); font-size: 18px; font-weight: 600; }
+
+        /* Standard Admin Chat Interface */
+        .chat-interface {
+            display: grid; grid-template-columns: 300px 1fr; gap: 0;
+            width: max-content; min-width: 100%; min-width: 1200px;
+            height: calc(100vh - 180px);
+            background: linear-gradient(135deg, rgba(26,26,26,0.9), rgba(61,40,23,0.1));
+            border: 2px solid rgba(139, 0, 0, 0.2); border-radius: 24px; overflow: hidden;
+        }
+        .chat-sidebar-left {
+            background: rgba(0, 0, 0, 0.3); border-right: 2px solid rgba(139, 0, 0, 0.2);
+            overflow-y: auto; max-height: calc(100vh - 180px);
+            width: 300px;
+            scrollbar-width: thin; scrollbar-color: var(--blood-red) var(--dark-gray);
+        }
+        .chat-sidebar-left::-webkit-scrollbar { width: 6px; }
+        .chat-sidebar-left::-webkit-scrollbar-track { background: var(--dark-gray); }
+        .chat-sidebar-left::-webkit-scrollbar-thumb { background: var(--blood-red); border-radius: 3px; }
+        .chat-user-item {
+            padding: 20px 20px 20px 22px; border-bottom: 1px solid rgba(139, 0, 0, 0.2);
+            cursor: pointer; transition: all 0.3s; position: relative;
+        }
+        .chat-user-item:hover, .chat-user-item.active { background: rgba(139, 0, 0, 0.15); }
+        .chat-user-item h4 { color: var(--white); font-size: 18px; margin-bottom: 8px; }
+        .chat-user-item p { color: #888; font-size: 14px; }
+        .unread-indicator {
+            position: absolute; top: 25px; right: 25px;
+            width: 12px; height: 12px; background: var(--deep-red);
+            border-radius: 50%; animation: pulse 2s infinite;
+        }
+        .chat-main-area { display: flex; flex-direction: column; background: rgba(0, 0, 0, 0.2); height: 100%; }
+        .chat-header-bar {
+            padding: 25px 35px;
+            background: linear-gradient(to right, rgba(139, 0, 0, 0.3), rgba(0,0,0,0.5));
+            border-bottom: 2px solid rgba(139, 0, 0, 0.3);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .chat-header-info h3 { color: var(--gold); font-size: 24px; margin-bottom: 8px; }
+        .chat-header-info p { color: #888; font-size: 14px; }
+        .chat-actions { display: flex; gap: 12px; }
+        .chat-messages-area {
+            flex: 1; overflow-y: auto; padding: 35px;
+            background: rgba(0, 0, 0, 0.3); min-height: 300px;
+            display: flex; flex-direction: column; gap: 15px;
+            scrollbar-width: thin; scrollbar-color: var(--blood-red) var(--dark-gray);
+        }
+        .chat-messages-area::-webkit-scrollbar { width: 8px; }
+        .chat-messages-area::-webkit-scrollbar-track { background: var(--dark-gray); border-radius: 4px; }
+        .chat-messages-area::-webkit-scrollbar-thumb { background: var(--blood-red); border-radius: 4px; }
+        .chat-messages-area::-webkit-scrollbar-thumb:hover { background: var(--deep-red); }
+        .chat-message { max-width: 75%; display: flex; flex-direction: column; }
+        .chat-message.admin { align-self: flex-end; align-items: flex-end; }
+        .chat-message.user { align-self: flex-start; align-items: flex-start; }
+        .chat-message-bubble {
+            padding: 18px 28px; border-radius: 20px; font-size: 16px;
+            line-height: 1.6; word-wrap: break-word;
+        }
+        .chat-message.user .chat-message-bubble {
+            background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--white); border-bottom-left-radius: 5px;
+        }
+        .chat-message.admin .chat-message-bubble {
+            background: linear-gradient(45deg, var(--blood-red), var(--deep-red));
+            color: var(--white); border-bottom-right-radius: 5px;
+        }
+        /* IMAGE STYLES IN ADMIN CHAT */
+        .chat-message-image {
+            max-width: 300px; max-height: 300px; border-radius: 15px;
+            margin-top: 10px; cursor: pointer; transition: transform 0.3s;
+            border: 2px solid rgba(255, 215, 0, 0.3);
+        }
+        .chat-message-image:hover { transform: scale(1.02); }
+        .chat-message-meta { font-size: 13px; color: #666; margin-top: 10px; }
+        .chat-input-bar {
+            display: flex; gap: 20px; padding: 25px 35px;
+            background: rgba(0, 0, 0, 0.5); border-top: 2px solid rgba(139, 0, 0, 0.3);
+            align-items: center;
+        }
+        .chat-input-field {
+            flex: 1; padding: 18px 28px; background: rgba(0, 0, 0, 0.5);
+            border: 2px solid rgba(139, 0, 0, 0.3); color: var(--white);
+            border-radius: 30px; font-size: 16px;
+        }
+        .chat-input-field:focus { outline: none; border-color: var(--blood-red); }
+        .chat-send-btn {
+            padding: 18px 35px; background: linear-gradient(45deg, var(--blood-red), var(--deep-red));
+            border: none; color: var(--white); border-radius: 30px; cursor: pointer;
+            font-size: 16px; font-weight: bold; transition: all 0.3s;
+        }
+        .chat-send-btn:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(139, 0, 0, 0.4); }
+        /* ADMIN IMAGE UPLOAD */
+        .admin-image-upload {
+            padding: 18px 20px; background: rgba(255, 215, 0, 0.1);
+            border: 2px solid var(--gold); color: var(--gold);
+            border-radius: 30px; cursor: pointer; font-size: 18px;
+            transition: all 0.3s; display: flex; align-items: center; justify-content: center;
+        }
+        .admin-image-upload:hover {
+            background: var(--gold); color: var(--black);
+            transform: scale(1.05);
+        }
+        .admin-image-upload input { display: none; }
+        
+        /* DONATION MESSAGE HIGHLIGHT IN ADMIN */
+        .admin-donation-message {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.25), rgba(255, 215, 0, 0.15)) !important;
+            border: 3px solid var(--success) !important;
+            padding: 25px !important;
+            font-size: 18px !important;
+            font-weight: bold !important;
+            color: var(--success) !important;
+            max-width: 90% !important;
+        }
+        .admin-donation-label {
+            display: inline-block; background: var(--success); color: var(--black);
+            padding: 5px 15px; border-radius: 20px; font-size: 12px;
+            font-weight: bold; margin-bottom: 10px; text-transform: uppercase;
+        }
+        .admin-donation-amount {
+            font-size: 32px; color: var(--gold); margin: 10px 0;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Code Generator Section */
+        .code-generator-section {
+            background: linear-gradient(135deg, rgba(0, 255, 136, 0.1), rgba(255, 215, 0, 0.1));
+            border: 3px solid var(--success); border-radius: 20px;
+            padding: 50px; text-align: center; margin: 30px 0;
+        }
+        .generated-code-display {
+            font-size: 56px; font-weight: bold; color: var(--gold);
+            font-family: 'Courier New', monospace; letter-spacing: 15px;
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5); margin: 30px 0;
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed; top: 120px; right: 40px;
+            background: linear-gradient(135deg, var(--dark-gray), rgba(61,40,23,0.3));
+            border: 2px solid var(--gold); border-radius: 20px; padding: 30px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5); z-index: 10002;
+            transform: translateX(600px); transition: transform 0.4s; max-width: 450px;
+        }
+        .notification.show { transform: translateX(0); }
+        .notification-title { color: var(--gold); font-weight: bold; margin-bottom: 10px; font-size: 18px; text-transform: uppercase; }
+        .notification-text { color: #aaa; font-size: 14px; }
+
+        /* Responsive */
+        @media (max-width: 1400px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .detail-grid { grid-template-columns: repeat(2, 1fr); }
+            .admin-header { padding: 18px 30px; }
+            .admin-actions { flex-wrap: wrap; gap: 16px; }
+        }
+        @media (max-width: 1100px) {
+            .admin-body { flex-direction: column; padding-top: 120px; }
+            .admin-sidebar {
+                position: relative;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 2px solid rgba(139, 0, 0, 0.2);
+            }
+            .admin-content { margin-left: 0; width: 100%; padding: 30px 24px 40px; }
+            .chat-interface { grid-template-columns: 1fr; width: 100%; min-width: auto; height: auto; }
+            .chat-main-area { min-width: 0; }
+            .chat-messages-area { padding: 24px; max-height: none; }
+            .chat-input-bar { padding: 22px; flex-wrap: wrap; gap: 14px; }
+            .card-header { flex-direction: column; align-items: flex-start; gap: 20px; }
+            .data-table { min-width: 0; }
+            .data-table th, .data-table td { padding: 16px 18px; }
+            .modal-content { padding: 40px; }
+        }
+        @media (max-width: 968px) {
+            .admin-sidebar { display: none; }
+            .mobile-nav { display: block; }
+            .admin-content { padding: 24px 18px 32px; }
+            .admin-header { padding: 16px 18px; }
+            .admin-brand h2 { font-size: 24px; }
+            .admin-badge, .live-indicator, .logout-btn { font-size: 11px; padding: 8px 14px; }
+            .sidebar-menu a { padding: 14px 16px; font-size: 14px; }
+            .page-title { font-size: 34px; margin-bottom: 30px; }
+            .stats-grid { grid-template-columns: 1fr; gap: 20px; }
+            .detail-grid { grid-template-columns: 1fr; }
+            .chat-interface { border-radius: 20px; grid-template-columns: 1fr; width: 100%; min-width: auto; height: auto; }
+            .chat-sidebar-left {
+                display: block;
+                position: absolute;
+                top: 100px;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 140px);
+                background: rgba(10, 10, 10, 0.98);
+                z-index: 100;
+                transform: translateX(-100%);
+                transition: transform 0.25s ease;
+                border-right: none;
+                border-bottom: none;
+                max-height: calc(100vh - 140px);
+            }
+            .chat-sidebar-left.mobile-open { transform: translateX(0); }
+            .chat-main-area { position: relative; }
+            .chat-header-bar { flex-wrap: wrap; gap: 14px; }
+            .chat-header-bar #chatListToggleButton { display: inline-flex; }
+            .chat-messages-area { padding: 24px; max-height: none; }
+            .chat-input-bar { flex-direction: column; align-items: stretch; }
+            .chat-input-bar button, .chat-input-bar input { width: 100%; }
+            .chat-message-image { max-width: 100%; height: auto; }
+            .data-table-wrapper { overflow-x: auto; }
+            .data-table th, .data-table td { padding: 14px 12px; font-size: 13px; }
+            .visitor-cell { flex-direction: column; align-items: flex-start; gap: 12px; }
+            .modal-content { padding: 30px; }
+            .member-detail-header { flex-direction: column; gap: 20px; }
+            .notification { top: 90px; right: 16px; left: 16px; max-width: calc(100% - 32px); }
+        }
+        @media (max-width: 640px) {
+            .admin-header { flex-direction: column; align-items: stretch; gap: 14px; }
+            .admin-actions { justify-content: space-between; width: 100%; }
+            .admin-user { width: 100%; justify-content: space-between; }
+            .chat-messages-area { padding: 18px; }
+            .chat-input-bar { padding: 18px; }
+            .data-table th, .data-table td { padding: 12px 10px; }
+            .member-detail-header { padding-bottom: 20px; }
+            .card-header { padding: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-animation"></div>
+
+    <!-- Auth Screen -->
+    <div class="auth-screen" id="authScreen">
+        <div class="auth-box">
+            <h1>🤘 Guns N' Roses</h1>
+            <p>Axl Rose Management Down</p>
+            <input type="text" class="auth-input" id="adminUser" placeholder="Username" autocomplete="off">
+            <div class="password-container">
+                <input type="password" class="auth-input" id="adminPass" placeholder="Password" style="margin-bottom: 0;">
+                <button type="button" class="password-toggle" onclick="togglePassword()">
+                    <i class="fas fa-eye" id="toggleIcon"></i>
+                </button>
+            </div>
+            <button class="auth-btn" onclick="login()"><i class="fas fa-lock"></i> Access Portal</button>
+            <div class="error-msg" id="errorMsg"><i class="fas fa-exclamation-circle"></i> Invalid credentials</div>
+        </div>
+    </div>
+
+    <!-- Admin Container -->
+    <div class="admin-container" id="adminContainer">
+        <header class="admin-header">
+            <div class="admin-brand">
+                <h2>🤘 Guns N' Roses</h2>
+                <span class="admin-badge">Axl Rose Management</span>
+            </div>
+            <div class="admin-actions">
+                <div class="live-indicator"><div class="live-dot"></div><span>LIVE SYNC</span></div>
+                <div class="admin-user">
+                    <div class="admin-avatar" id="headerAvatar">A</div>
+                    <div>
+                        <div style="font-size: 15px; font-weight: bold; color: var(--gold);">Administrator</div>
+                        <div style="font-size: 12px; color: #888;">Management Team</div>
+                    </div>
+                </div>
+                <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+            <div class="mobile-nav" id="mobilePageNav">
+                <label for="mobilePageSelect">Quick Access</label>
+                <select id="mobilePageSelect" onchange="showPage(this.value)">
+                    <option value="dashboard">Dashboard</option>
+                    <option value="pending">Pending Approval</option>
+                    <option value="messages">Messages</option>
+                    <option value="members">All Members</option>
+                    <option value="settings">Security</option>
+                </select>
+            </div>
+        </header>
+
+        <div class="admin-body">
+            <aside class="admin-sidebar">
+                <div class="sidebar-section">
+                    <div class="sidebar-title">Main Menu</div>
+                    <ul class="sidebar-menu">
+                        <li><a class="active" onclick="showPage('dashboard')"><i class="fas fa-chart-line"></i> Dashboard</a></li>
+                        <li><a onclick="showPage('pending')"><i class="fas fa-clock"></i> Pending Approval <span class="menu-badge" id="pendingBadge">0</span></a></li>
+                        <li><a onclick="showPage('messages')"><i class="fas fa-comments"></i> Messages <span class="menu-badge" id="messageBadge">0</span></a></li>
+                        <li><a onclick="showPage('members')"><i class="fas fa-users"></i> All Members</a></li>
+                        <li><a onclick="showPage('settings')"><i class="fas fa-shield-alt"></i> Security</a></li>
+                    </ul>
+                </div>
+            </aside>
+
+            <main class="admin-content" id="mainContent">
+                <!-- Dashboard -->
+                <div id="page-dashboard" class="page-section">
+                    <h1 class="page-title">Dashboard Overview</h1>
+                    <div class="stats-grid">
+                        <div class="stat-card"><div class="stat-value" id="statTotal">0</div><div class="stat-label">Total Applications</div></div>
+                        <div class="stat-card"><div class="stat-value" id="statPending">0</div><div class="stat-label">Pending Payment</div></div>
+                        <div class="stat-card"><div class="stat-value" id="statActive">0</div><div class="stat-label">Active Members</div></div>
+                        <div class="stat-card"><div class="stat-value" id="statRevenue">$0</div><div class="stat-label">Monthly Revenue</div></div>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-list"></i> Recent Applications</h3>
+                            <button class="btn btn-gold" onclick="showPage('members')">View All Members</button>
+                        </div>
+                        <table class="data-table">
+                            <thead><tr><th>Fan</th><th>Contact Info</th><th>Tier</th><th>Status</th><th>Applied Date</th><th>Actions</th></tr></thead>
+                            <tbody id="recentApplications"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Pending Approvals -->
+                <div id="page-pending" class="page-section" style="display: none;">
+                    <h1 class="page-title">Pending Approvals</h1>
+                    <div id="pendingContainer"></div>
+                </div>
+
+                <!-- Messages / Chat - WIDER WITH SCROLL -->
+                <div id="page-messages" class="page-section" style="display: none;">
+                    <h1 class="page-title">Fan Messages & Chat</h1>
+                    <div class="chat-interface">
+                        <div class="chat-sidebar-left" id="chatUserList"></div>
+                        <div class="chat-main-area">
+                            <div class="chat-header-bar" id="chatHeaderBar">
+                                <div class="chat-header-info">
+                                    <h3>Select a fan to start chatting</h3>
+                                    <p>Choose from the sidebar to view conversation and respond</p>
+                                </div>
+                                <button class="btn btn-info" id="chatListToggleButton" onclick="toggleChatList()" style="display:none; align-self:flex-start;">
+                                    <i class="fas fa-users"></i> Fan List
+                                </button>
+                            </div>
+                            <div class="chat-messages-area" id="chatMessagesArea">
+                                <div style="text-align: center; padding: 80px; color: #666;">
+                                    <i class="fas fa-comments" style="font-size: 80px; margin-bottom: 30px; opacity: 0.3;"></i>
+                                    <p style="font-size: 18px;">Select a fan from the sidebar to view messages and respond</p>
+                                </div>
+                            </div>
+                            <div class="chat-input-bar" id="chatInputBar" style="display: none;">
+                                <label class="admin-image-upload" title="Send Image">
+                                    <i class="fas fa-image"></i>
+                                    <input type="file" id="adminImageInput" accept="image/*" onchange="sendAdminImage(this)">
+                                </label>
+                                <input type="text" class="chat-input-field" id="adminChatInput" placeholder="Type your message to the fan...">
+                                <button class="chat-send-btn" onclick="sendAdminMessage()"><i class="fas fa-paper-plane"></i> Send Message</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- All Members -->
+                <div id="page-members" class="page-section" style="display: none;">
+                    <h1 class="page-title">Complete Member Directory</h1>
+                    <div class="content-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-users"></i> All Registered Members</h3>
+                            <button class="btn btn-gold" onclick="exportData()"><i class="fas fa-download"></i> Export Data</button>
+                        </div>
+                        <div class="data-table-wrapper">
+                            <table class="data-table">
+                                <thead><tr><th>Member</th><th>Email Address</th><th>Phone Number</th><th>Tier</th><th>Access Code</th><th>Status</th><th>Actions</th></tr></thead>
+                                <tbody id="allMembersTable"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div id="page-settings" class="page-section" style="display: none;">
+                    <h1 class="page-title">Security Settings</h1>
+                    <div class="content-card">
+                        <div class="card-header">
+                            <h3><i class="fas fa-shield-alt"></i> Admin Password</h3>
+                        </div>
+                        <div style="padding: 40px;">
+                            <p style="color: #ccc; margin-bottom: 25px;">View your account login details and securely update your password.</p>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start;">
+                                <div style="background: rgba(0, 0, 0, 0.25); padding: 30px; border-radius: 20px; border: 1px solid rgba(139,0,0,0.2);">
+                                    <h4 style="color: var(--gold); margin-bottom: 20px;">Current Credentials</h4>
+                                    <p style="color: #aaa; margin-bottom: 15px;"><strong>Username:</strong> <span id="currentAdminUsername">admin</span></p>
+                                    <p style="color: #aaa; margin-bottom: 5px;"><strong>Password:</strong></p>
+                                    <div style="position: relative; display: flex; align-items: center;">
+                                        <input type="password" id="currentAdminPassword" readonly style="width:100%; padding: 18px 60px 18px 18px; background: rgba(0,0,0,0.35); border: 2px solid rgba(139,0,0,0.3); border-radius: 15px; color: var(--white); font-size: 16px;">
+                                        <button type="button" onclick="toggleCurrentAdminPassword()" style="position:absolute; right: 18px; background:none; border:none; color:#888; font-size:18px; cursor:pointer;"><i class="fas fa-eye" id="currentPasswordIcon"></i></button>
+                                    </div>
+                                    <p style="color: #888; font-size: 13px; margin-top: 15px;">This is your current admin password. Keep it secure.</p>
+                                </div>
+                                <div style="background: rgba(0, 0, 0, 0.25); padding: 30px; border-radius: 20px; border: 1px solid rgba(139,0,0,0.2);">
+                                    <h4 style="color: var(--gold); margin-bottom: 20px;">Change Password</h4>
+                                    <input type="password" class="auth-input" id="currentPasswordInput" placeholder="Current Password" style="margin-bottom: 15px;">
+                                    <input type="password" class="auth-input" id="newPasswordInput" placeholder="New Password" style="margin-bottom: 15px;">
+                                    <div id="passwordStrength" style="margin-bottom: 15px; color: #aaa; font-size: 14px; display: flex; flex-direction: column; gap: 8px;">
+                                        <span>Strength: <strong id="passwordStrengthText">Enter a password</strong></span>
+                                        <div style="width: 100%; height: 10px; border-radius: 999px; background: rgba(255,255,255,0.08); overflow: hidden;">
+                                            <div id="passwordStrengthBar" style="width: 0%; height: 100%; background: var(--blood-red); transition: width 0.2s ease;"></div>
+                                        </div>
+                                    </div>
+                                    <input type="password" class="auth-input" id="confirmPasswordInput" placeholder="Confirm New Password" style="margin-bottom: 20px;">
+                                    <button class="btn btn-success" style="width:100%; padding: 18px 20px;" onclick="changeAdminPassword()"><i class="fas fa-key"></i> Update Password</button>
+                                    <div id="passwordChangeMessage" style="color: var(--success); font-size: 14px; margin-top: 15px; display:none;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="content-card" style="margin-top: 30px;">
+                        <div class="card-header">
+                            <h3><i class="fas fa-user-shield"></i> Visitor Logins</h3>
+                        </div>
+                        <div style="padding: 30px; overflow-x: auto;">
+                            <table class="data-table">
+                                <thead>
+                                    <tr><th>Email</th><th>Password</th><th>Name</th><th>Verified</th></tr>
+                                </thead>
+                                <tbody id="visitorLoginTable"></tbody>
+                            </table>
+                            <div id="visitorLoginEmpty" style="color: #888; padding: 30px; text-align: center; display: none;">No visitor login records found.</div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Member Detail Modal -->
+    <div class="modal-overlay" id="memberModal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+            <div class="member-detail-header">
+                <div class="member-detail-avatar" id="modalAvatar">A</div>
+                <div class="member-detail-info">
+                    <h2 id="modalName">Member Name</h2>
+                    <span class="badge" id="modalStatus">Pending</span>
+                </div>
+            </div>
+            <div class="detail-grid">
+                <div class="detail-item"><label>Email Address</label><value id="modalEmail">email@example.com</value></div>
+                <div class="detail-item"><label>Phone Number</label><value id="modalPhone">+1 555-0000</value></div>
+                <div class="detail-item"><label>Membership Tier</label><value id="modalTier">VIP</value></div>
+                <div class="detail-item"><label>Application Date</label><value id="modalDate">2024-01-01</value></div>
+                <div class="detail-item"><label>Access Code</label><value id="modalCode" style="color: var(--gold); font-family: monospace;">PENDING</value></div>
+                <div class="detail-item"><label>Payment Status</label><value id="modalPayment">Awaiting Verification</value></div>
+            </div>
+            <div class="detail-item" style="margin-bottom: 40px; grid-column: 1 / -1;">
+                <label>Application Message / Notes</label>
+                <value id="modalNotes" style="font-weight: normal; line-height: 1.8; font-size: 16px;">No message provided</value>
+            </div>
+            <div style="display: flex; gap: 20px; justify-content: center;">
+                <button class="btn btn-success" id="modalApproveBtn" onclick="approveFromModal()" style="padding: 20px 40px; font-size: 16px;"><i class="fas fa-check"></i> Verify Payment & Generate Code</button>
+                <button class="btn btn-info" onclick="messageFromModal()" style="padding: 20px 40px; font-size: 16px;"><i class="fas fa-comment"></i> Send Message</button>
+                <button class="btn btn-danger" onclick="rejectFromModal()" style="padding: 20px 40px; font-size: 16px;"><i class="fas fa-times"></i> Reject Application</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification -->
+    <div class="notification" id="notification">
+        <div class="notification-title" id="notifTitle">Success</div>
+        <div class="notification-text" id="notifText">Operation completed</div>
+    </div>
+
+    <script>
+        const DEFAULT_ADMIN_USERS = [
+            { username: 'axl', password: 'WelcomeToTheJungle2024!', name: 'Axl Manager', role: 'Manager', avatar: '🤘' },
+            { username: 'admin', password: 'StarAccess2024!', name: 'Administrator', role: 'Admin', avatar: 'A' }
+        ];
+        const ADMIN_STORAGE_KEY = 'gunsnroses_admin_users';
+        const CURRENT_ADMIN_STORAGE_KEY = 'gunsnroses_admin';
+        let ADMIN_USERS = [];
+
+        let visitors = JSON.parse(localStorage.getItem('gunsnroses_visitors')) || [];
+        let currentAdmin = null;
+        let selectedVisitorId = null;
+        let broadcastChannel = null;
+        let currentModalId = null;
+
+        function togglePassword() {
+            const passInput = document.getElementById('adminPass');
+            const toggleIcon = document.getElementById('toggleIcon');
+            if (passInput.type === 'password') {
+                passInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
+        }
+
+        function toggleCurrentAdminPassword() {
+            const passwordField = document.getElementById('currentAdminPassword');
+            const icon = document.getElementById('currentPasswordIcon');
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                passwordField.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        function loadAdminCredentials() {
+            const storedAdmins = localStorage.getItem(ADMIN_STORAGE_KEY);
+            if (storedAdmins) {
+                try {
+                    ADMIN_USERS = JSON.parse(storedAdmins);
+                    return;
+                } catch (err) {
+                    console.warn('Failed to parse stored admin credentials', err);
+                }
+            }
+            ADMIN_USERS = JSON.parse(JSON.stringify(DEFAULT_ADMIN_USERS));
+        }
+
+        function saveAdminCredentials() {
+            localStorage.setItem(ADMIN_STORAGE_KEY, JSON.stringify(ADMIN_USERS));
+        }
+
+        function getAdminByUsername(username) {
+            return ADMIN_USERS.find(u => u.username === username);
+        }
+
+        function displayCurrentAdminInfo() {
+            if (!currentAdmin) return;
+            document.getElementById('currentAdminUsername').textContent = currentAdmin.username;
+            const passwordField = document.getElementById('currentAdminPassword');
+            passwordField.value = currentAdmin.password;
+            passwordField.type = 'password';
+            const icon = document.getElementById('currentPasswordIcon');
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+            const message = document.getElementById('passwordChangeMessage');
+            if (message) {
+                message.style.display = 'none';
+            }
+            updatePasswordStrength();
+        }
+
+        function updatePasswordStrength() {
+            const value = document.getElementById('newPasswordInput').value;
+            const text = document.getElementById('passwordStrengthText');
+            const bar = document.getElementById('passwordStrengthBar');
+            const score = getPasswordStrength(value);
+            const width = Math.min(Math.max(score * 20, 0), 100);
+            let color = 'var(--blood-red)';
+            let label = 'Very Weak';
+
+            if (score >= 4) {
+                color = 'var(--success)';
+                label = 'Excellent';
+            } else if (score === 3) {
+                color = 'var(--gold)';
+                label = 'Good';
+            } else if (score === 2) {
+                color = 'var(--warning)';
+                label = 'Fair';
+            } else if (score === 1) {
+                color = '#ff6b6b';
+                label = 'Weak';
+            }
+
+            if (!value) {
+                text.textContent = 'Enter a password';
+                bar.style.width = '0%';
+                bar.style.background = 'var(--blood-red)';
+            } else {
+                text.textContent = label;
+                bar.style.width = width + '%';
+                bar.style.background = color;
+            }
+        }
+
+        function getPasswordStrength(password) {
+            let score = 0;
+            if (!password) return score;
+            if (password.length >= 8) score += 1;
+            if (password.length >= 12) score += 1;
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) score += 1;
+            if (/[0-9]/.test(password) && /[^A-Za-z0-9]/.test(password)) score += 1;
+            return Math.min(score, 5);
+        }
+
+        async function apiGet(path) {
+            try {
+                const response = await fetch(path, { method: 'GET' });
+                if (!response.ok) return null;
+                return await response.json();
+            } catch (error) {
+                console.warn('API GET failed:', error);
+                return null;
+            }
+        }
+
+        async function apiPost(path, data) {
+            try {
+                const response = await fetch(path, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                if (!response.ok) return null;
+                return await response.json();
+            } catch (error) {
+                console.warn('API POST failed:', error);
+                return null;
+            }
+        }
+
+        async function fetchVisitorsFromServer() {
+            return await apiGet('/api/visitors');
+        }
+
+        async function updateVisitorOnServer(visitor) {
+            if (!visitor || !visitor.id) return;
+            await apiPost('/api/visitor', visitor);
+        }
+
+        async function addVisitorMessageToServer(visitorId, message) {
+            if (!visitorId || !message) return;
+            await apiPost(`/api/visitor/${visitorId}/message`, message);
+        }
+
+        function changeAdminPassword() {
+            const current = document.getElementById('currentPasswordInput').value;
+            const next = document.getElementById('newPasswordInput').value;
+            const confirm = document.getElementById('confirmPasswordInput').value;
+            const message = document.getElementById('passwordChangeMessage');
+
+            if (!current || !next || !confirm) {
+                message.style.display = 'block';
+                message.style.color = 'var(--warning)';
+                message.textContent = 'Please fill in all password fields.';
+                return;
+            }
+
+            if (!currentAdmin || current !== currentAdmin.password) {
+                message.style.display = 'block';
+                message.style.color = 'var(--warning)';
+                message.textContent = 'Current password is incorrect.';
+                return;
+            }
+
+            if (next !== confirm) {
+                message.style.display = 'block';
+                message.style.color = 'var(--warning)';
+                message.textContent = 'New password and confirmation do not match.';
+                return;
+            }
+
+            if (next.length < 8) {
+                message.style.display = 'block';
+                message.style.color = 'var(--warning)';
+                message.textContent = 'New password must be at least 8 characters.';
+                return;
+            }
+
+            const stored = getAdminByUsername(currentAdmin.username);
+            if (stored) {
+                stored.password = next;
+            }
+            currentAdmin.password = next;
+            sessionStorage.setItem(CURRENT_ADMIN_STORAGE_KEY, JSON.stringify(currentAdmin));
+            saveAdminCredentials();
+            displayCurrentAdminInfo();
+            document.getElementById('currentPasswordInput').value = '';
+            document.getElementById('newPasswordInput').value = '';
+            document.getElementById('confirmPasswordInput').value = '';
+
+            message.style.display = 'block';
+            message.style.color = 'var(--success)';
+            message.textContent = 'Password updated successfully. Use your new password next time.';
+            showNotification('Password Updated', 'Your admin password has been changed successfully.');
+        }
+
+        function initCrossTabCommunication() {
+            if (typeof BroadcastChannel !== 'undefined') {
+                broadcastChannel = new BroadcastChannel('gunsnroses_visitors');
+                broadcastChannel.onmessage = function(event) {
+                    if (event.data.type === 'NEW_VISITOR') {
+                        loadVisitorsFromStorage();
+                        showNotification('🔥 New Application!', `${event.data.data.name} just applied`);
+                    } else if (event.data.type === 'NEW_MESSAGE') {
+                        loadVisitorsFromStorage();
+                        if (selectedVisitorId === event.data.visitorId) {
+                            loadChatMessages(selectedVisitorId);
+                        } else {
+                            updateMessageBadge();
+                            showNotification('💬 New Message', `Message from fan #${event.data.visitorId}`);
+                        }
+                    }
+                };
+            }
+            window.addEventListener('storage', function(e) {
+                if (e.key === 'gunsnroses_visitors') loadVisitorsFromStorage();
+            });
+        }
+
+        function login() {
+            const username = document.getElementById('adminUser').value.trim();
+            const password = document.getElementById('adminPass').value;
+            loadAdminCredentials();
+            const user = getAdminByUsername(username);
+            
+            if (user && user.password === password) {
+                currentAdmin = Object.assign({}, user);
+                document.getElementById('headerAvatar').textContent = user.avatar;
+                document.getElementById('authScreen').style.display = 'none';
+                document.getElementById('adminContainer').style.display = 'block';
+                initDashboard();
+                initCrossTabCommunication();
+                sessionStorage.setItem(CURRENT_ADMIN_STORAGE_KEY, JSON.stringify(currentAdmin));
+                displayCurrentAdminInfo();
+            } else {
+                document.getElementById('errorMsg').style.display = 'block';
+                setTimeout(() => document.getElementById('errorMsg').style.display = 'none', 3000);
+            }
+        }
+
+        window.addEventListener('load', function() {
+            loadAdminCredentials();
+            const saved = sessionStorage.getItem(CURRENT_ADMIN_STORAGE_KEY);
+            if (saved) {
+                currentAdmin = JSON.parse(saved);
+                document.getElementById('headerAvatar').textContent = currentAdmin.avatar;
+                document.getElementById('authScreen').style.display = 'none';
+                document.getElementById('adminContainer').style.display = 'block';
+                initDashboard();
+                initCrossTabCommunication();
+                displayCurrentAdminInfo();
+            }
+        });
+
+        function logout() {
+            currentAdmin = null;
+            sessionStorage.removeItem(CURRENT_ADMIN_STORAGE_KEY);
+            if (broadcastChannel) broadcastChannel.close();
+            document.getElementById('adminContainer').style.display = 'none';
+            document.getElementById('authScreen').style.display = 'flex';
+        }
+
+        function initDashboard() { 
+            loadVisitorsFromStorage();
+            setInterval(loadVisitorsFromStorage, 5000);
+        }
+
+        async function loadVisitorsFromStorage() {
+            const serverVisitors = await fetchVisitorsFromServer();
+            if (Array.isArray(serverVisitors)) {
+                visitors = serverVisitors;
+            } else {
+                const stored = localStorage.getItem('gunsnroses_visitors');
+                if (stored) visitors = JSON.parse(stored);
+            }
+            saveVisitors();
+            updateStats();
+            renderRecentApplications();
+            renderPending();
+            renderAllMembers();
+            renderChatUserList();
+            updateMessageBadge();
+        }
+
+        function updateStats() {
+            const total = visitors.length;
+            const pending = visitors.filter(v => v.status === 'pending').length;
+            const active = visitors.filter(v => v.status === 'active').length;
+            const revenue = visitors.reduce((acc, v) => {
+                if (v.status === 'active') {
+                    const prices = { roadie: 49, vip: 149, innercircle: 499 };
+                    return acc + (prices[v.tier] || 0);
+                }
+                return acc;
+            }, 0);
+
+            document.getElementById('statTotal').textContent = total;
+            document.getElementById('statPending').textContent = pending;
+            document.getElementById('statActive').textContent = active;
+            document.getElementById('statRevenue').textContent = '$' + revenue.toLocaleString();
+            document.getElementById('pendingBadge').textContent = pending;
+        }
+
+        function updateMessageBadge() {
+            let unread = 0;
+            visitors.forEach(v => {
+                if (v.messages) unread += v.messages.filter(m => m.from === 'user' && !m.read).length;
+            });
+            document.getElementById('messageBadge').textContent = unread;
+        }
+
+        function renderRecentApplications() {
+            const tbody = document.getElementById('recentApplications');
+            tbody.innerHTML = '';
+            visitors.slice(0, 5).forEach(v => {
+                const tierColors = { roadie: 'badge-roadie', vip: 'badge-vip', innercircle: 'badge-innercircle' };
+                tbody.innerHTML += `
+                    <tr>
+                        <td><div class="visitor-cell"><div class="visitor-avatar">${v.name.charAt(0)}</div><div><div style="color: white; font-weight: 600; font-size: 16px;">${v.name}</div></div></div></td>
+                        <td><div style="color: #888;"><div>${v.email}</div><div style="font-size: 13px; margin-top: 5px;">${v.phone || 'No phone'}</div></div></td>
+                        <td><span class="badge ${tierColors[v.tier]}">${v.tier}</span></td>
+                        <td><span class="badge badge-${v.status}">${v.status}</span></td>
+                        <td style="color: #888;">${v.date}</td>
+                        <td><div class="action-group"><button class="action-btn action-view" onclick="viewMemberDetail(${v.id})">View</button><button class="action-btn action-message" onclick="openChat(${v.id})">Chat</button></div></td>
+                    </tr>`;
+            });
+        }
+
+        function renderPending() {
+            const container = document.getElementById('pendingContainer');
+            const pending = visitors.filter(v => v.status === 'pending');
+            
+            if (pending.length === 0) {
+                container.innerHTML = '<div style="text-align: center; padding: 100px; color: #888;"><i class="fas fa-check-circle" style="font-size: 80px; color: var(--success); margin-bottom: 30px;"></i><h2 style="font-size: 32px; margin-bottom: 15px;">No Pending Applications</h2><p style="font-size: 18px;">All caught up! Time to rock 🤘</p></div>';
+                return;
+            }
+            
+            container.innerHTML = pending.map(v => {
+                const tierNames = { roadie: 'Roadie', vip: 'VIP Backstage', innercircle: 'Inner Circle' };
+                const tierColors = { roadie: '#c0c0c0', vip: '#FFD700', innercircle: '#DC143C' };
+                return `
+                    <div class="content-card" style="margin-bottom: 30px;">
+                        <div style="padding: 40px; border-bottom: 1px solid rgba(139, 0, 0, 0.2);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div style="display: flex; align-items: center; gap: 25px;">
+                                    <div class="visitor-avatar" style="width: 70px; height: 70px; font-size: 28px;">${v.name.charAt(0)}</div>
+                                    <div><h3 style="color: var(--white); font-size: 28px; margin-bottom: 8px;">${v.name}</h3><p style="color: #888; font-size: 16px;">${v.email} • ${v.phone || 'No phone'}</p></div>
+                                </div>
+                                <span style="background: ${tierColors[v.tier]}20; color: ${tierColors[v.tier]}; border: 1px solid ${tierColors[v.tier]}; padding: 12px 30px; border-radius: 25px; font-weight: bold; text-transform: uppercase; font-size: 14px;">${tierNames[v.tier]}</span>
+                            </div>
+                        </div>
+                        <div style="padding: 40px;">
+                            <div style="background: rgba(0, 0, 0, 0.3); padding: 30px; border-radius: 15px; margin-bottom: 30px;">
+                                <p style="color: #888; margin-bottom: 15px; font-size: 16px;"><strong style="color: var(--gold);">Message:</strong> ${v.notes || 'No message provided'}</p>
+                                <p style="color: #888; font-size: 16px;"><strong style="color: var(--gold);">Applied:</strong> ${v.date}</p>
+                            </div>
+                            <div id="codeSection-${v.id}" style="display: none;" class="code-generator-section">
+                                <h4 style="color: var(--success); font-size: 24px; margin-bottom: 15px;"><i class="fas fa-check-circle"></i> Payment Verified!</h4>
+                                <p style="color: #888; margin-bottom: 20px; font-size: 18px;">Generated Access Code:</p>
+                                <div class="generated-code-display" id="generatedCode-${v.id}">AXL-XXXX</div>
+                                <p style="color: #888; font-size: 16px;">This code has been sent to the fan's chat</p>
+                            </div>
+                            <div style="display: flex; gap: 20px;">
+                                <button class="btn btn-success" onclick="approveAndGenerateCode(${v.id})" style="padding: 20px 40px; font-size: 16px;"><i class="fas fa-check"></i> Verify Payment & Send Code</button>
+                                <button class="btn btn-info" onclick="openChat(${v.id})" style="padding: 20px 40px; font-size: 16px;"><i class="fas fa-comment"></i> Message First</button>
+                                <button class="btn btn-danger" onclick="rejectApplication(${v.id})" style="padding: 20px 40px; font-size: 16px;"><i class="fas fa-times"></i> Reject</button>
+                            </div>
+                        </div>
+                    </div>`;
+            }).join('');
+        }
+
+        function renderAllMembers() {
+            const tbody = document.getElementById('allMembersTable');
+            tbody.innerHTML = '';
+            visitors.forEach(v => {
+                const tierColors = { roadie: 'badge-roadie', vip: 'badge-vip', innercircle: 'badge-innercircle' };
+                tbody.innerHTML += `
+                    <tr>
+                        <td><div class="visitor-cell"><div class="visitor-avatar">${v.name.charAt(0)}</div><div><div style="color: white; font-weight: 600; font-size: 16px;">${v.name}</div></div></div></td>
+                        <td style="color: #888; font-size: 15px;">${v.email}</td>
+                        <td style="color: #888; font-size: 15px;">${v.phone || 'N/A'}</td>
+                        <td><span class="badge ${tierColors[v.tier]}">${v.tier}</span></td>
+                        <td style="font-family: monospace; color: var(--gold); font-weight: bold; font-size: 16px;">${v.code || 'Pending'}</td>
+                        <td><span class="badge badge-${v.status}">${v.status}</span></td>
+                        <td><div class="action-group"><button class="action-btn action-view" onclick="viewMemberDetail(${v.id})">View</button><button class="action-btn action-message" onclick="openChat(${v.id})">Chat</button></div></td>
+                    </tr>`;
+            });
+        }
+
+        function renderVisitorLoginInfo() {
+            const accounts = JSON.parse(localStorage.getItem('gunsnroses_accounts') || '[]');
+            const tbody = document.getElementById('visitorLoginTable');
+            const empty = document.getElementById('visitorLoginEmpty');
+            tbody.innerHTML = '';
+
+            if (!accounts || accounts.length === 0) {
+                empty.style.display = 'block';
+                return;
+            }
+
+            empty.style.display = 'none';
+            accounts.forEach(acc => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td style="color: #fff; font-weight: 600;">${acc.email}</td>
+                        <td style="color: var(--warning); font-family: monospace;">${acc.password}</td>
+                        <td style="color: #aaa;">${acc.name || 'Unknown'}</td>
+                        <td><span class="badge ${acc.verified ? 'badge-active' : 'badge-pending'}">${acc.verified ? 'Verified' : 'Pending'}</span></td>
+                    </tr>`;
+            });
+        }
+
+        function viewMemberDetail(id) {
+            const v = visitors.find(x => x.id === id);
+            if (!v) return;
+            currentModalId = id;
+            document.getElementById('modalAvatar').textContent = v.name.charAt(0);
+            document.getElementById('modalName').textContent = v.name;
+            document.getElementById('modalEmail').textContent = v.email;
+            document.getElementById('modalPhone').textContent = v.phone || 'Not provided';
+            document.getElementById('modalTier').textContent = v.tier.toUpperCase();
+            document.getElementById('modalDate').textContent = v.date;
+            document.getElementById('modalCode').textContent = v.code || 'PENDING';
+            document.getElementById('modalPayment').textContent = v.status === 'active' ? 'Verified' : 'Awaiting Verification';
+            document.getElementById('modalNotes').textContent = v.notes || 'No message provided';
+            
+            const statusBadge = document.getElementById('modalStatus');
+            statusBadge.textContent = v.status;
+            statusBadge.className = 'badge badge-' + v.status;
+            
+            document.getElementById('modalApproveBtn').style.display = v.status === 'pending' ? 'inline-flex' : 'none';
+            document.getElementById('memberModal').classList.add('active');
+        }
+
+        function closeModal() { document.getElementById('memberModal').classList.remove('active'); currentModalId = null; }
+        function approveFromModal() { if (currentModalId) { approveAndGenerateCode(currentModalId); closeModal(); } }
+        function messageFromModal() { if (currentModalId) { openChat(currentModalId); closeModal(); } }
+        function rejectFromModal() { if (currentModalId) { rejectApplication(currentModalId); closeModal(); } }
+
+        function approveAndGenerateCode(id) {
+            const v = visitors.find(x => x.id === id);
+            if (!v) return;
+            
+            const code = 'AXL-' + Math.random().toString(36).substring(2, 6).toUpperCase();
+            v.code = code;
+            v.status = 'active';
+            
+            if (!v.messages) v.messages = [];
+            v.messages.push({
+                from: 'admin',
+                text: `🎉 PAYMENT VERIFIED! Welcome to the Inner Circle! Your exclusive access code is: ${code}. You can continue chatting with us anytime for support. Rock on! 🤘`,
+                time: new Date().toLocaleTimeString(),
+                read: false,
+                type: 'text'
+            });
+            
+            saveVisitors();
+            updateVisitorOnServer(v);
+            
+            const codeSection = document.getElementById(`codeSection-${id}`);
+            const codeDisplay = document.getElementById(`generatedCode-${id}`);
+            if (codeSection && codeDisplay) {
+                codeSection.style.display = 'block';
+                codeDisplay.textContent = code;
+            }
+            
+            showNotification('🤘 Approved!', `${v.name} is now in the Inner Circle with code ${code}`);
+            updateStats();
+            
+            if (broadcastChannel) {
+                broadcastChannel.postMessage({ type: 'APPROVED', visitorId: id, code: code });
+            }
+            
+            setTimeout(() => {
+                renderPending();
+                renderAllMembers();
+                renderRecentApplications();
+                if (selectedVisitorId === id) loadChatMessages(id);
+            }, 2000);
+        }
+
+        function rejectApplication(id) {
+            if (!confirm('Reject this application?')) return;
+            const v = visitors.find(x => x.id === id);
+            if (v) {
+                v.status = 'rejected';
+                saveVisitors();
+                updateVisitorOnServer(v);
+                renderPending();
+                renderAllMembers();
+                showNotification('Rejected', `${v.name}'s application rejected`);
+            }
+        }
+
+        function saveVisitors() { localStorage.setItem('gunsnroses_visitors', JSON.stringify(visitors)); }
+
+        // Chat Functions - ENHANCED WITH SCROLL AND IMAGES
+        function renderChatUserList() {
+            const container = document.getElementById('chatUserList');
+            container.innerHTML = '';
+            
+            visitors.forEach(v => {
+                const unread = v.messages ? v.messages.filter(m => m.from === 'user' && !m.read).length : 0;
+                const tierNames = { roadie: 'Roadie', vip: 'VIP', innercircle: 'Inner Circle', donor: 'Donor' };
+                const lastMessage = v.messages && v.messages.length > 0 ? 
+                    (v.messages[v.messages.length - 1].type === 'image' ? '📷 Image' : 
+                     v.messages[v.messages.length - 1].type === 'donation' ? '💰 Donation Request' : 
+                     v.messages[v.messages.length - 1].text.substring(0, 30) + '...') : 'No messages yet';
+                
+                container.innerHTML += `
+                    <div class="chat-user-item ${selectedVisitorId === v.id ? 'active' : ''}" onclick="selectChatUser(${v.id})" id="chatUser-${v.id}">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div class="visitor-avatar" style="width: 45px; height: 45px; font-size: 18px;">${v.name.charAt(0)}</div>
+                            <div style="flex: 1; min-width: 0;">
+                                <h4 style="font-size: 16px; margin-bottom: 4px;">${v.name}</h4>
+                                <p style="font-size: 13px; color: #666; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${lastMessage}</p>
+                                <p style="font-size: 12px; color: #888; margin-top: 4px;">${tierNames[v.tier] || v.tier} • ${v.status} ${v.code ? '• ' + v.code : ''}</p>
+                            </div>
+                        </div>
+                        ${unread > 0 ? `<div class="unread-indicator"></div>` : ''}
+                    </div>`;
+            });
+        }
+
+        function openChat(id) {
+            showPage('messages');
+            setTimeout(() => selectChatUser(id), 100);
+        }
+
+        function selectChatUser(id) {
+            selectedVisitorId = id;
+            renderChatUserList();
+            loadChatMessages(id);
+            if (window.innerWidth <= 968) {
+                const sidebar = document.getElementById('chatUserList');
+                if (sidebar) sidebar.classList.remove('mobile-open');
+            }
+        }
+
+        function toggleChatList() {
+            const sidebar = document.getElementById('chatUserList');
+            if (!sidebar) return;
+            sidebar.classList.toggle('mobile-open');
+        }
+
+        function loadChatMessages(id) {
+            const v = visitors.find(x => x.id === id);
+            if (!v) return;
+            
+            const tierNames = { roadie: 'Roadie', vip: 'VIP Backstage', innercircle: 'Inner Circle', donor: 'Donor' };
+            
+            document.getElementById('chatHeaderBar').innerHTML = `
+                <div class="chat-header-info">
+                    <h3><i class="fas fa-user"></i> ${v.name}</h3>
+                    <p>${tierNames[v.tier] || v.tier} • ${v.email} • ${v.status} ${v.code ? '• Code: ' + v.code : ''}</p>
+                </div>
+                <div class="chat-actions">
+                    <button class="btn btn-success" onclick="approveAndGenerateCode(${v.id})" style="display: ${v.status === 'pending' ? 'inline-flex' : 'none'}; padding: 12px 25px; font-size: 14px;">
+                        <i class="fas fa-check"></i> Approve
+                    </button>
+                    <button class="btn btn-gold" onclick="viewMemberDetail(${v.id})" style="padding: 12px 25px; font-size: 14px;">
+                        <i class="fas fa-eye"></i> View Details
+                    </button>
+                </div>
+            `;
+            
+            const chatArea = document.getElementById('chatMessagesArea');
+            chatArea.innerHTML = '';
+            
+            if (v.messages && v.messages.length > 0) {
+                v.messages.forEach(msg => {
+                    const msgDiv = document.createElement('div');
+                    msgDiv.className = `chat-message ${msg.from}`;
+                    
+                    let bubbleContent = '';
+                    let bubbleClass = 'chat-message-bubble';
+                    
+                    if (msg.type === 'image') {
+                        bubbleContent = `<img src="${msg.imageUrl}" class="chat-message-image" onclick="window.open('${msg.imageUrl}', '_blank')">`;
+                    } else if (msg.type === 'donation') {
+                        bubbleClass += ' admin-donation-message';
+                        bubbleContent = `
+                            <div class="admin-donation-label"><i class="fas fa-donate"></i> NEW DONATION REQUEST</div>
+                            <div class="admin-donation-amount">${msg.text}</div>
+                            <div style="font-size: 14px; opacity: 0.9; margin-top: 10px;">This user wants to make a donation. Please assist with payment completion immediately.</div>
+                        `;
+                    } else {
+                        bubbleContent = msg.text;
+                    }
+                    
+                    msgDiv.innerHTML = `
+                        <div class="${bubbleClass}">${bubbleContent}</div>
+                        <div class="chat-message-meta">${msg.time} • ${msg.from === 'admin' ? 'You' : v.name}</div>
+                    `;
+                    chatArea.appendChild(msgDiv);
+                    if (msg.from === 'user') msg.read = true;
+                });
+                chatArea.scrollTop = chatArea.scrollHeight;
+            } else {
+                chatArea.innerHTML = '<div style="text-align: center; color: #666; padding: 60px; font-size: 18px;">No messages yet. Start the conversation!</div>';
+            }
+            
+            document.getElementById('chatInputBar').style.display = 'flex';
+            updateMessageBadge();
+            saveVisitors();
+        }
+
+        function sendAdminMessage() {
+            const input = document.getElementById('adminChatInput');
+            const text = input.value.trim();
+            
+            if (!text || !selectedVisitorId) return;
+            
+            const v = visitors.find(x => x.id === selectedVisitorId);
+            if (v) {
+                if (!v.messages) v.messages = [];
+                const message = {
+                    from: 'admin',
+                    text: text,
+                    time: new Date().toLocaleTimeString(),
+                    read: false,
+                    type: 'text'
+                };
+                v.messages.push(message);
+                
+                saveVisitors();
+                addVisitorMessageToServer(selectedVisitorId, message);
+                input.value = '';
+                loadChatMessages(selectedVisitorId);
+                renderChatUserList();
+                
+                if (broadcastChannel) {
+                    broadcastChannel.postMessage({
+                        type: 'NEW_MESSAGE',
+                        visitorId: selectedVisitorId,
+                        text: text
+                    });
+                }
+            }
+        }
+
+        function sendAdminImage(input) {
+            if (!input.files || !input.files[0] || !selectedVisitorId) return;
+            
+            const file = input.files[0];
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                const imageUrl = e.target.result;
+                const v = visitors.find(x => x.id === selectedVisitorId);
+                
+                if (v) {
+                    if (!v.messages) v.messages = [];
+                    const message = {
+                        from: 'admin',
+                        text: 'Sent an image',
+                        imageUrl: imageUrl,
+                        time: new Date().toLocaleTimeString(),
+                        read: false,
+                        type: 'image'
+                    };
+                    v.messages.push(message);
+                    
+                    saveVisitors();
+                    addVisitorMessageToServer(selectedVisitorId, message);
+                    loadChatMessages(selectedVisitorId);
+                    renderChatUserList();
+                    
+                    if (broadcastChannel) {
+                        broadcastChannel.postMessage({
+                            type: 'NEW_MESSAGE',
+                            visitorId: selectedVisitorId,
+                            text: 'Sent an image'
+                        });
+                    }
+                }
+            };
+            
+            reader.readAsDataURL(file);
+            input.value = '';
+        }
+
+        function showPage(page) {
+            document.querySelectorAll('.page-section').forEach(p => p.style.display = 'none');
+            document.querySelectorAll('.sidebar-menu a').forEach(a => a.classList.remove('active'));
+            
+            const target = document.getElementById(`page-${page}`);
+            if (target) target.style.display = 'block';
+            
+            const menuItems = document.querySelectorAll('.sidebar-menu a');
+            menuItems.forEach(item => {
+                if (item.getAttribute('onclick').includes(page)) item.classList.add('active');
+            });
+            
+            const mobileSelect = document.getElementById('mobilePageSelect');
+            if (mobileSelect) mobileSelect.value = page;
+            
+            if (page === 'messages') {
+                renderChatUserList();
+                if (selectedVisitorId) loadChatMessages(selectedVisitorId);
+            }
+            if (page === 'settings') {
+                renderVisitorLoginInfo();
+            }
+        }
+
+        function exportData() {
+            const dataStr = JSON.stringify(visitors, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            const link = document.createElement('a');
+            link.href = url; link.download = 'gunsnroses_members.json'; link.click();
+            showNotification('Export Complete', 'Member data downloaded successfully');
+        }
+
+        function showNotification(title, text) {
+            document.getElementById('notifTitle').textContent = title;
+            document.getElementById('notifText').textContent = text;
+            document.getElementById('notification').classList.add('show');
+            setTimeout(() => document.getElementById('notification').classList.remove('show'), 4000);
+        }
+
+        document.getElementById('adminPass').addEventListener('keypress', function(e) { if (e.key === 'Enter') login(); });
+        document.getElementById('adminChatInput').addEventListener('keypress', function(e) { if (e.key === 'Enter') sendAdminMessage(); });
+        document.getElementById('newPasswordInput').addEventListener('input', updatePasswordStrength);
+    </script>
+</body>
+</html>
